@@ -60,7 +60,7 @@ public class PantallaInicio extends JFrame {
 		contentPane.add(lblNewLabel);
 
 		// Cargar la imagen original
-		ImageIcon originalIcon = new ImageIcon(PantallaInicio.class.getResource("/logoClinica.png"));
+		ImageIcon originalIcon = new ImageIcon(PantallaInicio.class.getResource("/visual/logoClinica.png"));
 
 		// Escalar la imagen al tamaño deseado
 		Image scaledImage = originalIcon.getImage().getScaledInstance(70, 70, Image.SCALE_SMOOTH);
