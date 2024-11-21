@@ -80,7 +80,7 @@ public class PantallaPrincipal extends JFrame {
 		JRadioButton rdbtnRegular = new JRadioButton("Trabajador regular");
 		rdbtnRegular.setFont(new Font("Verdana", Font.BOLD, 16));
 		rdbtnRegular.setBackground(new Color(192, 192, 192));
-		rdbtnRegular.setBounds(116, 429, 211, 29);
+		rdbtnRegular.setBounds(126, 429, 211, 29);
 		contentPane.add(rdbtnRegular);
 		
 		JRadioButton rdbtnMedico = new JRadioButton("Medicos Consultantes");
