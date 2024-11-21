@@ -1,5 +1,6 @@
 package logico;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 public class Consulta {
@@ -9,19 +10,22 @@ public class Consulta {
 	private Medico doctor;
 	private Date fechaConsulta;
 	private String motivo;
-	private String enfermededades;
-	boolean esImportante;
+	private ArrayList<Enfermedad> enfermedades;
+	private boolean esImportante;
+	private boolean esEnfermo;
+	
 	
 	public Consulta(String idConsulta, Paciente paciente, Medico doctor, Date fechaConsulta, String motivo,
-			String enfermededades, boolean esImportante) {
+			String enfermededades, boolean esImportante, boolean esEnfermo) {
 		super();
 		this.idConsulta = idConsulta;
 		this.paciente = paciente;
 		this.doctor = doctor;
 		this.fechaConsulta = fechaConsulta;
 		this.motivo = motivo;
-		this.enfermededades = enfermededades;
+		this.enfermedades = new ArrayList<>();
 		this.esImportante = esImportante;
+		this.esEnfermo = esEnfermo;
 	}
 	
 	public String getIdConsulta() {
@@ -54,12 +58,23 @@ public class Consulta {
 	public void setMotivo(String motivo) {
 		this.motivo = motivo;
 	}
-	public String getEnfermededades() {
-		return enfermededades;
-	}
-	public void setEnfermededades(String enfermededades) {
-		this.enfermededades = enfermededades;
-	}
+
+	public ArrayList<Enfermedad> getEnfermedades() {
+	return enfermedades;
+}
+
+public void setEnfermedades(ArrayList<Enfermedad> enfermedades) {
+	this.enfermedades = enfermedades;
+}
+
+public boolean isEsEnfermo() {
+	return esEnfermo;
+}
+
+public void setEsEnfermo(boolean esEnfermo) {
+	this.esEnfermo = esEnfermo;
+}
+
 	public boolean isEsImportante() {
 		return esImportante;
 	}
