@@ -12,11 +12,27 @@ public class ClinicaMedica {
 	private ArrayList<Vacuna>listaVacunas;
 	private ArrayList<Diagnostico>listaDiagnostico;
 	private ArrayList<Cita>listaCita;
+	private static ClinicaMedica miclinica = null;
 	
-	public ClinicaMedica(ArrayList<Medico> listaMedicos, ArrayList<Paciente> listaPacientes,
-			ArrayList<Consulta> listaConsultas, ArrayList<HistoriaClinica> listaHistorial,
-			ArrayList<Enfermedad> listaEnfermedad, ArrayList<Vacuna> listaVacunas,
-			ArrayList<Diagnostico> listaDiagnostico, ArrayList<Cita> listaCita) {
+	public static int codMedico = 1;
+	public static int codPaciente = 1;
+	public static int codConsulta = 1;
+	public static int codHistorial = 1;
+	public static int codEnfermedad = 1;
+	public static int codVacuna = 1;
+	public static int codCita = 1;
+
+	
+	public static ClinicaMedica getInstance() {
+		if (miclinica == null) {
+			miclinica = new ClinicaMedica();
+		}
+		return miclinica;
+	};
+	
+	
+	
+	public ClinicaMedica() {
 		super();
 		this.listaMedicos = new ArrayList<>();
 		this.listaPacientes = new ArrayList<>();
@@ -27,6 +43,34 @@ public class ClinicaMedica {
 		this.listaDiagnostico = new ArrayList<>();
 		this.listaCita = new ArrayList<>();
 	}
+	
+
+	
+	
+	
+	
+	
+	public Paciente buscarPacienteByCedula(String id) {
+		boolean encontrado = false;
+		Paciente aux = null;
+		int i = 0;
+		while (!encontrado && i < listaPacientes.size()) {
+			if (listaPacientes.get(i).getCedula().equalsIgnoreCase(id)) {
+				aux = listaPacientes.get(i);
+				encontrado = true;
+			}
+			i++;
+		}
+
+		return aux;
+	}
+	
+	
+	
+	
+	
+	
+	
 
 	public ArrayList<Medico> getListaMedicos() {
 		return listaMedicos;

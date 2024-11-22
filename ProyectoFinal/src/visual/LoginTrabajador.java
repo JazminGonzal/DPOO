@@ -16,6 +16,7 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JSeparator;
 import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
 import javax.swing.border.EmptyBorder;
 
 public class LoginTrabajador extends JFrame {
@@ -101,6 +102,10 @@ public class LoginTrabajador extends JFrame {
 				
 				if( usuarioIngresado.equals("admin") && contrasenaIngresada.equals("1234")) {
 					//JOptionPane.showMessageDialog(null, "Login Exitoso", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+					MenuRegular menuReg = new MenuRegular();
+					menuReg.setVisible(true);
+					JFrame currentFrame = (JFrame) SwingUtilities.getWindowAncestor(btnLogin);
+			        currentFrame.dispose();
 					
 				} else {
 					JOptionPane.showMessageDialog(null, "Usuario o Contraseña Incorrectos", "Error", JOptionPane.ERROR_MESSAGE);

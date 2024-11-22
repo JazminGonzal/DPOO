@@ -12,6 +12,7 @@ import javax.swing.JOptionPane;
 import java.awt.Font;
 import java.awt.Color;
 import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
 import javax.swing.JPasswordField;
 import javax.swing.JSeparator;
 import javax.swing.JButton;
@@ -102,6 +103,10 @@ public class LoginAdmin extends JFrame {
 				
 				if( usuarioIngresado.equals("admin") && contrasenaIngresada.equals("1234")) {
 					//JOptionPane.showMessageDialog(null, "Login Exitoso", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+					MenuAdmin menuAd = new MenuAdmin();
+					menuAd.setVisible(true);
+					JFrame currentFrame = (JFrame) SwingUtilities.getWindowAncestor(btnLogin);
+			        currentFrame.dispose();
 					
 				} else {
 					JOptionPane.showMessageDialog(null, "Usuario o Contraseña Incorrectos", "Error", JOptionPane.ERROR_MESSAGE);

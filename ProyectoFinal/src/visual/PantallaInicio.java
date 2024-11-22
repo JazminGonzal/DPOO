@@ -59,14 +59,10 @@ public class PantallaInicio extends JFrame {
 		lblNewLabel.setBounds(116, 42, 632, 48);
 		contentPane.add(lblNewLabel);
 
-		// Cargar la imagen original
+		
 		ImageIcon originalIcon = new ImageIcon(PantallaInicio.class.getResource("/visual/logoClinica.png"));
-
-		// Escalar la imagen al tamaño deseado
 		Image scaledImage = originalIcon.getImage().getScaledInstance(70, 70, Image.SCALE_SMOOTH);
 		ImageIcon scaledIcon = new ImageIcon(scaledImage);
-
-		// Agregar la imagen redimensionada a un JLabel
 		JLabel lblImagen = new JLabel(scaledIcon);
 		lblImagen.setBounds(31, 32, 70, 70);
 		contentPane.add(lblImagen);
