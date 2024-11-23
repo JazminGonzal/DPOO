@@ -11,9 +11,9 @@ public class Medico extends Persona {
 	private float sueldo;
 	private ArrayList<Cita> citasDelDia;
 	
-	public Medico(String cedula, String nombre, String telefono, String direccion, Date fehcaNacimiento,
+	public Medico(String cedula, String nombre, String telefono, String direccion, Date fechaNacimiento,
 			String codMedico, String puesto, String especialidad, float sueldo) {
-		super(cedula, nombre, telefono, direccion, fehcaNacimiento);
+		super(cedula, nombre, telefono, direccion, fechaNacimiento);
 		
 		this.codMedico=codMedico;
 		this.puesto = puesto;

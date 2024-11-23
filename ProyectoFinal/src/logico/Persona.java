@@ -9,15 +9,15 @@ public abstract class Persona {
 	protected String nombre;
 	protected String telefono;
 	protected String direccion;
-	protected Date fehcaNacimiento;
+	protected Date fechaNacimiento;
 	
-	public Persona(String cedula, String nombre, String telefono, String direccion, Date fehcaNacimiento) {
+	public Persona(String cedula, String nombre, String telefono, String direccion, Date fechaNacimiento) {
 		super();
 		this.cedula = cedula;
 		this.nombre = nombre;
 		this.telefono = telefono;
 		this.direccion = direccion;
-		this.fehcaNacimiento = fehcaNacimiento;
+		this.fechaNacimiento = fechaNacimiento;
 	}
 	
 	
@@ -46,11 +46,11 @@ public abstract class Persona {
 	public void setDireccion(String direccion) {
 		this.direccion = direccion;
 	}
-	public Date getFehcaNacimiento() {
-		return fehcaNacimiento;
+	public Date getfechaNacimiento() {
+		return fechaNacimiento;
 	}
-	public void setFehcaNacimiento(Date fehcaNacimiento) {
-		this.fehcaNacimiento = fehcaNacimiento;
+	public void setfechaNacimiento(Date fechaNacimiento) {
+		this.fechaNacimiento = fechaNacimiento;
 	}
 
 }

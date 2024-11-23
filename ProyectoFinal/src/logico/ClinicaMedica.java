@@ -67,7 +67,10 @@ public class ClinicaMedica {
 	
 	
 	
-	
+	public void insertarMedico(Medico medico) {
+		listaMedicos.add(medico);
+		codMedico++;
+	}
 	
 	
 	

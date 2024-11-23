@@ -60,6 +60,7 @@ public class RegistrarCita extends JDialog {
      * Create the dialog.
      */
     public RegistrarCita() {
+    	setTitle("Registro de Citas");
         setBounds(100, 100, 1043, 512);
         getContentPane().setLayout(new BorderLayout());
         contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -236,7 +237,7 @@ public class RegistrarCita extends JDialog {
 	        txtIdPaciente.setText(paciente.getCodPaciente());
 	        txtDireccion.setText(paciente.getDireccion());
 	        txtTelefono.setText(paciente.getTelefono());
-	        spnNacimiento.setValue(paciente.getFehcaNacimiento());
+	        spnNacimiento.setValue(paciente.getfechaNacimiento());
 	        txtCedula.setEditable(true); 
 	        JButton btnBuscar = (JButton) contentPanel.getComponent(2);
 	        btnBuscar.setEnabled(false);  

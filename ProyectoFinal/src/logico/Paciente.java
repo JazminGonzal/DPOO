@@ -9,8 +9,8 @@ public class Paciente extends Persona{
 	private ArrayList<Vacuna> misVacunas;
 	private ArrayList<Enfermedad> misEnfermedades;
 	
-	public Paciente(String cedula, String nombre, String telefono, String direccion, Date fehcaNacimiento, String codPaciente) {
-		super(cedula, nombre, telefono, direccion, fehcaNacimiento);
+	public Paciente(String cedula, String nombre, String telefono, String direccion, Date fechaNacimiento, String codPaciente) {
+		super(cedula, nombre, telefono, direccion, fechaNacimiento);
 		
 		this.codPaciente=codPaciente;
 		this.misVacunas = new ArrayList<>();
