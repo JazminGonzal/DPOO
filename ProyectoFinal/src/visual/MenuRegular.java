@@ -19,6 +19,8 @@ import java.awt.Color;
 import javax.swing.JLabel;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.border.LineBorder;
+import javax.swing.JButton;
 
 public class MenuRegular extends JFrame {
 
@@ -64,7 +66,7 @@ public class MenuRegular extends JFrame {
 		
 		JMenuBar menuBar = new JMenuBar();
 		menuBar.setMaximumSize(new Dimension(0, 10));
-		menuBar.setBounds(0, 0, 1898, 31);
+		menuBar.setBounds(0, 0, 1898, 40);
 		contentPane.add(menuBar);
 		menuBar.setBackground(new Color(47, 79, 79));
 		
@@ -110,6 +112,30 @@ public class MenuRegular extends JFrame {
 		JMenuItem mntmListarMdicos = new JMenuItem("   Listar M\u00E9dicos");
 		mntmListarMdicos.setFont(new Font("Segoe UI", Font.PLAIN, 20));
 		mnMdicos.add(mntmListarMdicos);
+		
+		JPanel panel = new JPanel();
+		panel.setLayout(null);
+		panel.setBorder(new LineBorder(new Color(0, 0, 0)));
+		panel.setBackground(new Color(47, 79, 79));
+		panel.setBounds(0, dim.height-150, 1898, 96);
+		contentPane.add(panel);
+		
+		JButton button = new JButton("Volver a pantalla de Inicio");
+		button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				PantallaInicio pantInicio = new PantallaInicio();
+				pantInicio.setVisible(true);
+				dispose();
+			}
+		});
+		button.setBounds(15, 31, 282, 29);
+		panel.add(button);
+		
+		JLabel label = new JLabel("CL\u00CDNICA PRIVADA ALONSO");
+		label.setForeground(new Color(47, 79, 79));
+		label.setFont(new Font("Verdana", Font.BOLD, 25));
+		label.setBounds(758, 56, 407, 48);
+		contentPane.add(label);
 	}
 
 }

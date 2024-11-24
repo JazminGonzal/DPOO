@@ -72,6 +72,50 @@ public class ClinicaMedica {
 		codMedico++;
 	}
 	
+	public void insertarPaciente(Paciente paciente) {
+		listaPacientes.add(paciente);
+		codPaciente++;
+		
+	}
+	
+	public void insertarConsulta(Consulta consulta) {
+		listaConsultas.add(consulta);
+		codConsulta++;
+		
+	}
+	
+	public void insertarHistorial(HistoriaClinica historial) {
+		listaHistorial.add(historial);
+		codHistorial++;
+		
+	}
+	
+	public void insertarEnfermedad(Enfermedad enfermedad) {
+		listaEnfermedad.add(enfermedad);
+		codEnfermedad++;
+		
+	}
+	
+	public void insertarVacunas(Vacuna vacuna) {
+		listaVacunas.add(vacuna);
+		codVacuna++;
+		
+	}
+	
+	public void insertarDiagnostico(Diagnostico diagnostico) {
+		listaDiagnostico.add(diagnostico);
+		codEnfermedad++;
+		
+	}
+	
+	public void insertarCita(Cita cita) {
+		listaCita.add(cita);
+		codCita++;
+		
+	}
+	
+	
+	
 	
 	
 
@@ -138,6 +182,9 @@ public class ClinicaMedica {
 	public void setListaCita(ArrayList<Cita> listaCita) {
 		this.listaCita = listaCita;
 	}
+
+
+
 	
 	
 	

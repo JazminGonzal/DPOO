@@ -105,8 +105,6 @@ public class LoginAdmin extends JFrame {
 					//JOptionPane.showMessageDialog(null, "Login Exitoso", "Éxito", JOptionPane.INFORMATION_MESSAGE);
 					MenuAdmin menuAd = new MenuAdmin();
 					menuAd.setVisible(true);
-					//JFrame currentFrame = (JFrame) SwingUtilities.getWindowAncestor(btnLogin);
-			        //currentFrame.dispose();
 			        dispose();
 					
 				} else {

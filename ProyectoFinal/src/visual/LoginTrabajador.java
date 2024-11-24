@@ -100,7 +100,7 @@ public class LoginTrabajador extends JFrame {
 				String contrasenaIngresada = new String(pfContrasena.getPassword());
 				String usuarioIngresado = new String(txtUsuario.getText());
 				
-				if( usuarioIngresado.equals("admin") && contrasenaIngresada.equals("1234")) {
+				if( usuarioIngresado.equals("regular") && contrasenaIngresada.equals("1234")) {
 					//JOptionPane.showMessageDialog(null, "Login Exitoso", "Éxito", JOptionPane.INFORMATION_MESSAGE);
 					MenuRegular menuReg = new MenuRegular();
 					menuReg.setVisible(true);

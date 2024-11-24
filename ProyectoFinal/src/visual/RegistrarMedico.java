@@ -28,6 +28,8 @@ import javax.swing.SpinnerNumberModel;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.border.SoftBevelBorder;
+import javax.swing.border.BevelBorder;
 
 public class RegistrarMedico extends JDialog {
 
@@ -149,6 +151,8 @@ public class RegistrarMedico extends JDialog {
 			spnFechNac = new JSpinner();
 			spnFechNac.setModel(new SpinnerDateModel(new Date(1732334400000L), null, new Date(1732334400000L), Calendar.YEAR));
 			spnFechNac.setBounds(154, 453, 208, 26);
+	        JSpinner.DateEditor de_spnNacimiento = new JSpinner.DateEditor(spnFechNac, "yyyy-MM-dd"); // Formato de fecha
+	        spnFechNac.setEditor(de_spnNacimiento);
 			panel.add(spnFechNac);
 			
 			JLabel lblNewLabel_8 = new JLabel("Puesto:");
@@ -183,6 +187,7 @@ public class RegistrarMedico extends JDialog {
 		}
 		{
 			JPanel buttonPane = new JPanel();
+			buttonPane.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{

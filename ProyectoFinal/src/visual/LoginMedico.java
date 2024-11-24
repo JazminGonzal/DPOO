@@ -18,98 +18,109 @@ import javax.swing.JSeparator;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
+import logico.ClinicaMedica;
+import logico.Medico;
+
 public class LoginMedico extends JFrame {
 
-	private JPanel contentPane;
-	private JTextField txtUsuario;
-	private JPasswordField pfContrasena;
+    private JPanel contentPane;
+    private JTextField txtUsuario;
+    private JPasswordField pfContrasena;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					LoginMedico frame = new LoginMedico();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+    /**
+     * Launch the application.
+     */
+    public static void main(String[] args) {
+        EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                try {
+                    LoginMedico frame = new LoginMedico();
+                    frame.setVisible(true);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
 
-	/**
-	 * Create the frame.
-	 */
-	public LoginMedico() {
-		setBackground(SystemColor.menu);
-		setTitle("Login Medico");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 680, 601);
-		contentPane = new JPanel();
-		contentPane.setBackground(SystemColor.menu);
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
-		contentPane.setLayout(new BorderLayout(0, 0));
-		
-		JPanel panel = new JPanel();
-		panel.setBackground(SystemColor.menu);
-		contentPane.add(panel, BorderLayout.CENTER);
-		panel.setLayout(null);
-		
-		JLabel lblNewLabel = new JLabel("LOGIN MEDICO");
-		lblNewLabel.setForeground(new Color(47, 79, 79));
-		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 28));
-		lblNewLabel.setBounds(227, 51, 239, 59);
-		panel.add(lblNewLabel);
-		
-		JLabel lblNewLabel_1 = new JLabel("Usuario:");
-		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 18));
-		lblNewLabel_1.setBounds(114, 200, 85, 20);
-		panel.add(lblNewLabel_1);
-		
-		JLabel lblNewLabel_2 = new JLabel("Contrase\u00F1a:");
-		lblNewLabel_2.setFont(new Font("Tahoma", Font.BOLD, 18));
-		lblNewLabel_2.setBounds(84, 295, 115, 20);
-		panel.add(lblNewLabel_2);
-		
-		txtUsuario = new JTextField();
-		txtUsuario.setBounds(214, 198, 264, 26);
-		panel.add(txtUsuario);
-		txtUsuario.setColumns(10);
-		
-		pfContrasena = new JPasswordField();
-		pfContrasena.setBounds(214, 293, 264, 26);
-		panel.add(pfContrasena);
-		
-		JSeparator separator = new JSeparator();
-		separator.setBounds(56, 126, 527, 2);
-		panel.add(separator);
-		
-		JSeparator separator_1 = new JSeparator();
-		separator_1.setBounds(56, 391, 515, 2);
-		panel.add(separator_1);
-		
-		JButton btnLogin = new JButton("Ingresar");
-		btnLogin.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
-				String contrasenaIngresada = new String(pfContrasena.getPassword());
-				String usuarioIngresado = new String(txtUsuario.getText());
-				
-				if( usuarioIngresado.equals("admin") && contrasenaIngresada.equals("1234")) {
-					//JOptionPane.showMessageDialog(null, "Login Exitoso", "Éxito", JOptionPane.INFORMATION_MESSAGE);
-					
-				} else {
-					JOptionPane.showMessageDialog(null, "Usuario o Contraseña Incorrectos", "Error", JOptionPane.ERROR_MESSAGE);
-				}
-			}
-		});
-		btnLogin.setFont(new Font("Tahoma", Font.BOLD, 16));
-		btnLogin.setBounds(264, 430, 126, 36);
-		panel.add(btnLogin);
-	}
+    /**
+     * Create the frame.
+     */
+    public LoginMedico() {
+        setBackground(SystemColor.menu);
+        setTitle("Login Medico");
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setBounds(100, 100, 680, 601);
+        contentPane = new JPanel();
+        contentPane.setBackground(SystemColor.menu);
+        contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+        setContentPane(contentPane);
+        contentPane.setLayout(new BorderLayout(0, 0));
 
+        JPanel panel = new JPanel();
+        panel.setBackground(SystemColor.menu);
+        contentPane.add(panel, BorderLayout.CENTER);
+        panel.setLayout(null);
+
+        JLabel lblNewLabel = new JLabel("LOGIN MEDICO");
+        lblNewLabel.setForeground(new Color(47, 79, 79));
+        lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 28));
+        lblNewLabel.setBounds(227, 51, 239, 59);
+        panel.add(lblNewLabel);
+
+        JLabel lblNewLabel_1 = new JLabel("Código Médico:");
+        lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 18));
+        lblNewLabel_1.setBounds(114, 200, 185, 20);
+        panel.add(lblNewLabel_1);
+
+        JLabel lblNewLabel_2 = new JLabel("Contraseña:");
+        lblNewLabel_2.setFont(new Font("Tahoma", Font.BOLD, 18));
+        lblNewLabel_2.setBounds(114, 295, 115, 20);
+        panel.add(lblNewLabel_2);
+
+        txtUsuario = new JTextField();
+        txtUsuario.setBounds(214, 198, 264, 26);
+        panel.add(txtUsuario);
+        txtUsuario.setColumns(10);
+
+        pfContrasena = new JPasswordField();
+        pfContrasena.setBounds(214, 293, 264, 26);
+        panel.add(pfContrasena);
+
+        JSeparator separator = new JSeparator();
+        separator.setBounds(56, 126, 527, 2);
+        panel.add(separator);
+
+        JSeparator separator_1 = new JSeparator();
+        separator_1.setBounds(56, 391, 515, 2);
+        panel.add(separator_1);
+
+        JButton btnLogin = new JButton("Ingresar");
+        btnLogin.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                
+                String contrasenaIngresada = new String(pfContrasena.getPassword());
+                String codigoMedicoIngresado = txtUsuario.getText();
+                ClinicaMedica clinica = ClinicaMedica.getInstance();
+
+                Medico medico = null;
+                for (Medico m : clinica.getListaMedicos()) {
+                    if (m.getCodMedico().equals(codigoMedicoIngresado)) {
+                        medico = m;
+                        break;
+                    }
+                }
+
+                if (medico != null && contrasenaIngresada.equals("1234")) {
+                    JOptionPane.showMessageDialog(null, "Login Exitoso", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+                    dispose();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Código Médico o Contraseña Incorrectos", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        });
+        btnLogin.setFont(new Font("Tahoma", Font.BOLD, 16));
+        btnLogin.setBounds(264, 430, 126, 36);
+        panel.add(btnLogin);
+    }
 }
