@@ -43,13 +43,14 @@ public class RegistrarMedico extends JDialog {
 	private JSpinner spnSueldo;
 	private JComboBox cbPuesto;
 	private JSpinner spnFechNac;
+	private Medico updated = null;
 
 	/**
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
 		try {
-			RegistrarMedico dialog = new RegistrarMedico();
+			RegistrarMedico dialog = new RegistrarMedico(null);
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			dialog.setVisible(true);
 		} catch (Exception e) {
@@ -60,8 +61,13 @@ public class RegistrarMedico extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public RegistrarMedico() {
+	public RegistrarMedico(Medico aux) {
+		updated = aux;
+		if(updated != null) {
+			setTitle("Modificar Médico");
+		} else {
 		setTitle("Registro de M\u00E9dico");
+		}
 		setBounds(100, 100, 914, 663);
 		setLocationRelativeTo(null);
 		getContentPane().setLayout(new BorderLayout());
@@ -73,7 +79,13 @@ public class RegistrarMedico extends JDialog {
 			contentPanel.add(panel, BorderLayout.CENTER);
 			panel.setLayout(null);
 			{
-				JLabel lblNewLabel = new JLabel("Registro de M\u00E9dico");
+				
+				JLabel lblNewLabel;
+				if(updated != null) {
+					lblNewLabel = new JLabel("Modificación de M\u00E9dico");
+				} else {
+					lblNewLabel = new JLabel("Registro de M\u00E9dico");
+				}
 				lblNewLabel.setForeground(new Color(47, 79, 79));
 				lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 23));
 				lblNewLabel.setBounds(351, 43, 242, 37);
@@ -192,6 +204,9 @@ public class RegistrarMedico extends JDialog {
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
 				JButton btnRegistrar = new JButton("Registrar");
+				if(updated != null) {
+					btnRegistrar.setText("Modificar");
+				}
 				btnRegistrar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						
@@ -200,6 +215,8 @@ public class RegistrarMedico extends JDialog {
 							return;
 						}
 						
+						
+						if(updated == null) {
 						Medico medico = null;
 						Date fecha = (Date) spnFechNac.getValue();
 						Float sueldo = new Float(spnSueldo.getValue().toString());
@@ -209,6 +226,20 @@ public class RegistrarMedico extends JDialog {
 						ClinicaMedica.getInstance().insertarMedico(medico);
 						JOptionPane.showMessageDialog(null,"Registro Satisfactorio","Información",JOptionPane.INFORMATION_MESSAGE);					
 						clean();
+						}
+						else {
+							updated.setNombre(txtNombre.getText());
+							updated.setTelefono(txtTelefono.getText());
+							updated.setDireccion(txtDireccion.getText());
+							updated.setEspecialidad(txtEspecialidad.getText());
+							updated.setCedula(txtCedula.getText());
+							updated.setfechaNacimiento((Date)spnFechNac.getValue());
+							updated.setPuesto(cbPuesto.getSelectedItem().toString());
+							updated.setSueldo((Float)spnSueldo.getValue());
+							ClinicaMedica.getInstance().modificarMedico(updated);
+							ListarMedico.loadMedicos();
+							dispose();
+						}
 					}
 				});
 				btnRegistrar.setActionCommand("OK");
@@ -244,6 +275,21 @@ public class RegistrarMedico extends JDialog {
 			}
 
 		return false;
+	}
+	
+	
+	private void loadMedicos() {
+		if(updated != null) {
+			txtCodMedico.setText(updated.getCodMedico());
+			txtCedula.setText(updated.getCedula());
+			txtNombre.setText(updated.getNombre());
+			txtTelefono.setText(updated.getTelefono());
+			txtDireccion.setText(updated.getDireccion());
+			cbPuesto.setSelectedItem(updated.getPuesto());
+			txtEspecialidad.setText(updated.getEspecialidad());
+			spnFechNac.setValue(updated.getfechaNacimiento());
+			spnSueldo.setValue(new Float(updated.getSueldo()));
+		}
 	}
 	
 	
