@@ -43,6 +43,7 @@ public class RegistrarCita extends JDialog {
 	private JTextField txtIdCita;
 	private JTextField txtMotivo;
 	private JComboBox cbxMedico;
+	private  JOptionPane spnFechaCita;
 
 	/**
 	 * Launch the application.
@@ -99,7 +100,6 @@ public class RegistrarCita extends JDialog {
 
 		// Configuración del JSpinner para mostrar solo la fecha
 		JSpinner spnNacimiento = new JSpinner();
-		spnNacimiento.setEnabled(false);
 		spnNacimiento.setModel(new SpinnerDateModel(new Date(), null, null, Calendar.DAY_OF_MONTH));
 		spnNacimiento.setBounds(519, 39, 162, 26);
 		JSpinner.DateEditor de_spnNacimiento = new JSpinner.DateEditor(spnNacimiento, "yyyy-MM-dd"); // Formato de fecha
@@ -162,10 +162,15 @@ public class RegistrarCita extends JDialog {
 		lblFechaDeCita.setBounds(296, 105, 115, 20);
 		panel_1.add(lblFechaDeCita);
 
+		// Configuración del JSpinner para la fecha de la cita
 		JSpinner spnFechaCita = new JSpinner();
-		spnFechaCita.setModel(new SpinnerDateModel(new Date(1708574400000L), null, null, Calendar.DAY_OF_WEEK));
-		spnFechaCita.setBounds(406, 102, 162, 26);
-		panel_1.add(spnFechaCita);
+		spnFechaCita.setModel(new SpinnerDateModel(new Date(), null, null, Calendar.MINUTE)); // Fecha y hora actuales
+		JSpinner.DateEditor editor = new JSpinner.DateEditor(spnFechaCita, "yyyy-MM-dd HH:mm"); // Formato deseado
+		spnFechaCita.setEditor(editor);
+		spnFechaCita.setBounds(406, 102, 162, 26); // Posición en el panel
+		panel_1.add(spnFechaCita); // Añadir el spinner al panel
+
+       
 
 		JLabel label_8 = new JLabel("Id:");
 		label_8.setBounds(15, 105, 69, 20);
@@ -301,14 +306,17 @@ public class RegistrarCita extends JDialog {
 	}
 
 	private void clean() {
-		txtIdPaciente.setText("Pac-" + ClinicaMedica.getInstance().codPaciente);
-		txtIdCita.setText("Cita-" + ClinicaMedica.getInstance().codCita);
-		txtCedula.setText("");
-		txtDireccion.setText("");
-		txtMotivo.setText("");
-		txtNombre.setText("");
-		txtTelefono.setText("");
-		cbxMedico.setSelectedIndex(0);
+	    txtIdPaciente.setText("Pac-" + ClinicaMedica.getInstance().codPaciente);
+	    txtIdCita.setText("Cita-" + ClinicaMedica.getInstance().codCita);
+	    txtCedula.setText("");
+	    txtDireccion.setText("");
+	    txtMotivo.setText("");
+	    txtNombre.setText("");
+	    txtTelefono.setText("");
+	    cbxMedico.setSelectedIndex(0);
+	    spnFechaCita.setValue(new Date());
+	    spnNacimiento.setValue(new Date());
 	}
+
 
 }

@@ -135,6 +135,80 @@ public class ClinicaMedica {
 		listaMedicos.remove(aux);	
 	}
 	
+	public ArrayList<Cita> getCitasPorMedico(String codMedico) {
+	    ArrayList<Cita> citasPorMedico = new ArrayList<>();
+	    for (Cita cita : listaCita) {
+	        if (cita.getMedico().getCodMedico().equals(codMedico)) {
+	            citasPorMedico.add(cita);
+	        }
+	    }
+	    return citasPorMedico;
+	}
+
+	
+
+	
+	public int buscarMedicoByCodgetIndex(String codMedico) {
+		int medico = -1;
+		boolean encontrado = false;
+		int i = 0;
+		while(!encontrado && i < listaMedicos.size()) {
+			if(listaMedicos.get(i).getCodMedico().equalsIgnoreCase(codMedico)) {
+				medico = i;
+				encontrado = true;
+			}
+			i++;
+		}
+		return medico;
+	}
+
+
+
+	public void modificarMedico(Medico updated) {
+	int index = buscarMedicoByCodgetIndex(updated.getCodMedico());
+		if(index!= -1) {
+		listaMedicos.set(index, updated);
+		}
+	}
+
+
+	public void eliminarCita(String idCita) {
+		boolean encontrado = false;
+		Cita aux = null;
+		int i = 0;
+		while (!encontrado && i < listaCita.size()) {
+			if (listaCita.get(i).getIdCita().equalsIgnoreCase(idCita)) {
+				aux = listaCita.get(i);
+				encontrado = true;
+			}
+			i++;
+		}
+		
+		listaCita.remove(aux);
+	}
+	
+
+
+	public Cita buscarCitaById(String idCita) {
+		boolean encontrado = false;
+		Cita aux = null;
+		int i = 0;
+		while (!encontrado && i < listaCita.size()) {
+			if (listaCita.get(i).getIdCita().equalsIgnoreCase(idCita)) {
+				aux = listaCita.get(i);
+				encontrado = true;
+			}
+			i++;
+		}
+
+		return aux;
+	}
+
+	
+	
+	
+	
+	
 	
 
 	public ArrayList<Medico> getListaMedicos() {
@@ -199,33 +273,6 @@ public class ClinicaMedica {
 
 	public void setListaCita(ArrayList<Cita> listaCita) {
 		this.listaCita = listaCita;
-	}
-	
-	
-	public int buscarMedicoByCodgetIndex(String codMedico) {
-		int medico = -1;
-		boolean encontrado = false;
-		int i = 0;
-		while(!encontrado && i < listaMedicos.size()) {
-			if(listaMedicos.get(i).getCodMedico().equalsIgnoreCase(codMedico)) {
-				medico = i;
-				encontrado = true;
-			}
-			i++;
-		}
-		return medico;
-	}
-
-
-
-	public void modificarMedico(Medico updated) {
-	int index = buscarMedicoByCodgetIndex(updated.getCodMedico());
-	if(index!= -1) {
-		listaMedicos.set(index, updated);
-	}
-	
-	
-		
 	}
 
 

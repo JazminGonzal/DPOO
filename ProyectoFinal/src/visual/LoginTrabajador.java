@@ -115,6 +115,16 @@ public class LoginTrabajador extends JFrame {
 		btnLogin.setFont(new Font("Tahoma", Font.BOLD, 16));
 		btnLogin.setBounds(264, 430, 126, 36);
 		panel.add(btnLogin);
+		
+		JButton button = new JButton("Cancelar");
+		button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+			}
+		});
+		button.setFont(new Font("Tahoma", Font.BOLD, 16));
+		button.setBounds(507, 483, 126, 36);
+		panel.add(button);
 	}
 
 }

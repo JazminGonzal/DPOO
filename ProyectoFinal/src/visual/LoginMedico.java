@@ -79,12 +79,12 @@ public class LoginMedico extends JFrame {
         panel.add(lblNewLabel_2);
 
         txtUsuario = new JTextField();
-        txtUsuario.setBounds(214, 198, 264, 26);
+        txtUsuario.setBounds(253, 198, 225, 26);
         panel.add(txtUsuario);
         txtUsuario.setColumns(10);
 
         pfContrasena = new JPasswordField();
-        pfContrasena.setBounds(214, 293, 264, 26);
+        pfContrasena.setBounds(220, 293, 258, 26);
         panel.add(pfContrasena);
 
         JSeparator separator = new JSeparator();
@@ -98,29 +98,35 @@ public class LoginMedico extends JFrame {
         JButton btnLogin = new JButton("Ingresar");
         btnLogin.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                
-                String contrasenaIngresada = new String(pfContrasena.getPassword());
-                String codigoMedicoIngresado = txtUsuario.getText();
-                ClinicaMedica clinica = ClinicaMedica.getInstance();
+                String codigo = txtUsuario.getText();
+                String contrasena = new String(pfContrasena.getPassword());
 
-                Medico medico = null;
-                for (Medico m : clinica.getListaMedicos()) {
-                    if (m.getCodMedico().equals(codigoMedicoIngresado)) {
-                        medico = m;
-                        break;
-                    }
-                }
+                Medico medico = ClinicaMedica.getInstance().buscarMedicoByCod(codigo);
 
-                if (medico != null && contrasenaIngresada.equals("1234")) {
-                    JOptionPane.showMessageDialog(null, "Login Exitoso", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+                if (medico != null && contrasena.equals("1234")) {
+                    ConsultasPorMedico consultas = new ConsultasPorMedico(codigo);
+                    consultas.loadCitasDelMedico(codigo);
+                    consultas.setModal(true);
+                    consultas.setVisible(true);
                     dispose();
                 } else {
-                    JOptionPane.showMessageDialog(null, "Código Médico o Contraseña Incorrectos", "Error", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Código o contraseña incorrectos.", "Error", JOptionPane.ERROR_MESSAGE);
                 }
             }
         });
+
         btnLogin.setFont(new Font("Tahoma", Font.BOLD, 16));
         btnLogin.setBounds(264, 430, 126, 36);
         panel.add(btnLogin);
+        
+        JButton button = new JButton("Cancelar");
+        button.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		dispose();
+        	}
+        });
+        button.setFont(new Font("Tahoma", Font.BOLD, 16));
+        button.setBounds(507, 483, 126, 36);
+        panel.add(button);
     }
 }

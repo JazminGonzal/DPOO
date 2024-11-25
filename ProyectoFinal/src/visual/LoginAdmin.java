@@ -115,5 +115,15 @@ public class LoginAdmin extends JFrame {
 		btnLogin.setFont(new Font("Tahoma", Font.BOLD, 16));
 		btnLogin.setBounds(264, 430, 126, 36);
 		panel.add(btnLogin);
+		
+		JButton btnCancelar = new JButton("Cancelar");
+		btnCancelar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+			}
+		});
+		btnCancelar.setFont(new Font("Tahoma", Font.BOLD, 16));
+		btnCancelar.setBounds(507, 483, 126, 36);
+		panel.add(btnCancelar);
 	}
 }
