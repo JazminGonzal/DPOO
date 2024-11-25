@@ -80,15 +80,13 @@ public class RegistrarMedico extends JDialog {
 			panel.setLayout(null);
 			{
 				
-				JLabel lblNewLabel;
+				JLabel lblNewLabel = new JLabel("Registro de M\u00E9dico");
 				if(updated != null) {
 					lblNewLabel = new JLabel("Modificación de M\u00E9dico");
-				} else {
-					lblNewLabel = new JLabel("Registro de M\u00E9dico");
-				}
+				} 
 				lblNewLabel.setForeground(new Color(47, 79, 79));
 				lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 23));
-				lblNewLabel.setBounds(351, 43, 242, 37);
+				lblNewLabel.setBounds(351, 43, 403, 37);
 				panel.add(lblNewLabel);
 			}
 			
@@ -238,6 +236,7 @@ public class RegistrarMedico extends JDialog {
 							updated.setSueldo((Float)spnSueldo.getValue());
 							ClinicaMedica.getInstance().modificarMedico(updated);
 							ListarMedico.loadMedicos();
+							JOptionPane.showMessageDialog(null,"Modificación Satisfactorio","Información",JOptionPane.INFORMATION_MESSAGE);
 							dispose();
 						}
 					}
@@ -257,6 +256,7 @@ public class RegistrarMedico extends JDialog {
 				buttonPane.add(btnCancelar);
 			}
 		}
+		loadMedicos();
 	}
 	
 	

@@ -14,12 +14,18 @@ import java.awt.Font;
 import java.awt.Image;
 
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.border.LineBorder;
+
+import logico.ClinicaMedica;
+
+
 import javax.swing.JButton;
 
 public class MenuAdmin extends JFrame {
@@ -121,9 +127,15 @@ public class MenuAdmin extends JFrame {
 		JMenuItem menuItem_3 = new JMenuItem("   Listar M\u00E9dicos");
 		menuItem_3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
+				if(ClinicaMedica.getInstance().getListaMedicos().isEmpty()) {
+					JOptionPane.showMessageDialog(null, "No hay médicos registrados. Por favor, registre uno primero.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+				}
+				else {
 				ListarMedico listaMedicos = new ListarMedico();
 				listaMedicos.setModal(true);
 				listaMedicos.setVisible(true);
+				}
 			}
 		});
 		menuItem_3.setFont(new Font("Segoe UI", Font.PLAIN, 20));

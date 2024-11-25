@@ -106,6 +106,7 @@ public class ListarMedico extends JDialog {
 						RegistrarMedico reg = new RegistrarMedico(selected);
 						reg.setModal(true);
 						reg.setVisible(true);
+						btnModificar.setEnabled(false);
 					}
 			 	}
 			 });
@@ -117,7 +118,7 @@ public class ListarMedico extends JDialog {
 				btnEliminar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						if(selected!=null) {
-							int option = JOptionPane.showConfirmDialog(null, "Esta seguro que quiere borrar el medico?: "+selected.getCodMedico(), "Eliminar", JOptionPane.WARNING_MESSAGE);
+							int option = JOptionPane.showConfirmDialog(null, "Esta seguro que quiere borrar el médico? Código: "+selected.getCodMedico(), "Eliminar", JOptionPane.WARNING_MESSAGE);
 							if(option == JOptionPane.OK_OPTION) {
 								ClinicaMedica.getInstance().eliminarMedico(selected);
 								btnEliminar.setEnabled(false);
