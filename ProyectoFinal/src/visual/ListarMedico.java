@@ -86,7 +86,7 @@ public class ListarMedico extends JDialog {
 						}
 					});
 					modelo = new DefaultTableModel();
-					String[] identificadores = {"Codigo", "Nombre", "Telefono", "Puesto", "Especialidad"};
+					String[] identificadores = {"Código", "Nombre", "Teléfono", "Puesto", "Especialidad"};
 					modelo.setColumnIdentifiers(identificadores);
 					table.setModel(modelo);
 					scrollPane.setViewportView(table);
