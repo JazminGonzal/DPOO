@@ -100,6 +100,11 @@ public class ConsultasPorMedico extends JDialog {
         modelo.setColumnIdentifiers(identificadores);
         table.setModel(modelo);
         scrollPane.setViewportView(table);
+        table.getSelectionModel().addListSelectionListener(e -> {
+            boolean isRowSelected = table.getSelectedRow() >= 0;
+            btnModificar.setEnabled(isRowSelected);
+            btnEliminar.setEnabled(isRowSelected);
+        });
 
         lblNoCitas = new JLabel("No hay citas para este día.");
         lblNoCitas.setBounds(2, 456, 901, 52);
@@ -115,6 +120,13 @@ public class ConsultasPorMedico extends JDialog {
         getContentPane().add(buttonPane, BorderLayout.SOUTH);
 
         btnModificar = new JButton("Consultar");
+        btnModificar.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		RegistrarConsulta regConsulta = new RegistrarConsulta();
+        		regConsulta.setModal(true);
+        		regConsulta.setVisible(true);
+        	}
+        });
         btnModificar.setEnabled(false);
         buttonPane.add(btnModificar);
 
