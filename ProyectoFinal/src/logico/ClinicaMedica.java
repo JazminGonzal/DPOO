@@ -82,6 +82,22 @@ public class ClinicaMedica {
 	}
 	
 	
+	public Vacuna buscarVacunaByCod(String codVacuna) {
+		boolean encontrado = false;
+		Vacuna aux = null;
+		int i = 0;
+		while (!encontrado && i < listaVacunas.size()) {
+			if (listaVacunas.get(i).getCodigoVacuna().equalsIgnoreCase(codVacuna)) {
+				aux = listaVacunas.get(i);
+				encontrado = true;
+			}
+			i++;
+		}
+
+		return aux;
+	}
+	
+	
 	
 	public void insertarMedico(Medico medico) {
 		listaMedicos.add(medico);
@@ -135,6 +151,10 @@ public class ClinicaMedica {
 		listaMedicos.remove(aux);	
 	}
 	
+	public void eliminarVacuna(Vacuna aux) {
+		listaVacunas.remove(aux);	
+	}
+	
 	public ArrayList<Cita> getCitasPorMedico(String codMedico) {
 	    ArrayList<Cita> citasPorMedico = new ArrayList<>();
 	    for (Cita cita : listaCita) {
@@ -161,6 +181,21 @@ public class ClinicaMedica {
 		}
 		return medico;
 	}
+	
+	
+	public int buscarVacunaByCodIndex(String codVacuna) {
+		int vacuna = -1;
+		boolean encontrado = false;
+		int i = 0;
+		while(!encontrado && i < listaVacunas.size()) {
+			if(listaVacunas.get(i).getCodigoVacuna().equalsIgnoreCase(codVacuna)) {
+				vacuna = i;
+				encontrado = true;
+			}
+			i++;
+		}
+		return vacuna;
+	}
 
 
 
@@ -170,6 +205,13 @@ public class ClinicaMedica {
 		listaMedicos.set(index, updated);
 		}
 	}
+	
+	public void modificarVacuna(Vacuna updated) {
+		int index = buscarVacunaByCodIndex(updated.getCodigoVacuna());
+			if(index!= -1) {
+			listaVacunas.set(index, updated);
+			}
+		}
 
 
 	public void eliminarCita(String idCita) {

@@ -148,10 +148,30 @@ public class MenuAdmin extends JFrame {
 		menuBar.add(mnVacunas);
 		
 		JMenuItem mntmRegistrarVacunas = new JMenuItem("   Registrar Vacunas");
+		mntmRegistrarVacunas.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				RegistrarVacunas regVacuna = new RegistrarVacunas(null);
+				regVacuna.setModal(true);
+				regVacuna.setVisible(true);
+			}
+		});
 		mntmRegistrarVacunas.setFont(new Font("Segoe UI", Font.PLAIN, 20));
 		mnVacunas.add(mntmRegistrarVacunas);
 		
 		JMenuItem mntmListarVacunas = new JMenuItem("   Listar Vacunas");
+		mntmListarVacunas.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				if(ClinicaMedica.getInstance().getListaVacunas().isEmpty()) {
+					JOptionPane.showMessageDialog(null, "No hay vacunas registradas. Por favor, registre una primero.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+				}
+				else {
+				ListarVacunas listaVacuna = new ListarVacunas();
+				listaVacuna.setModal(true);
+				listaVacuna.setVisible(true);
+				}
+			}
+		});
 		mntmListarVacunas.setFont(new Font("Segoe UI", Font.PLAIN, 20));
 		mnVacunas.add(mntmListarVacunas);
 		

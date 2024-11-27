@@ -8,42 +8,42 @@ import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import javax.swing.border.TitledBorder;
+import javax.swing.border.SoftBevelBorder;
 import javax.swing.table.DefaultTableModel;
 
 import logico.ClinicaMedica;
 import logico.Medico;
+import logico.Vacuna;
 
+import javax.swing.border.BevelBorder;
 import javax.swing.BoxLayout;
-import java.awt.GridLayout;
-import javax.swing.JTable;
 import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
+import javax.swing.ScrollPaneConstants;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
-
-import javax.swing.ListSelectionModel;
-import javax.swing.ScrollPaneConstants;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class ListarMedico extends JDialog {
+public class ListarVacunas extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
 	private static JTable table;
 	private static DefaultTableModel modelo;
 	private static Object[] row;
 	private int index = -1; 
+	private Vacuna selected = null;
 	private JButton btnEliminar;
 	private JButton btnModificar;
-	private Medico selected = null;
-	
+
 	/**
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
 		try {
-			ListarMedico dialog = new ListarMedico();
+			ListarVacunas dialog = new ListarVacunas();
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			dialog.setVisible(true);
 		} catch (Exception e) {
@@ -54,12 +54,12 @@ public class ListarMedico extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public ListarMedico() {
-		setTitle("Lista de M\u00E9dicos");
-		setBounds(100, 100, 927, 688);
+	public ListarVacunas() {
+		setTitle("Lista de Vacunas");
+		setBounds(100, 100, 788, 647);
 		setLocationRelativeTo(null);
 		getContentPane().setLayout(new BorderLayout());
-		contentPanel.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(new BorderLayout(0, 0));
 		{
@@ -72,7 +72,6 @@ public class ListarMedico extends JDialog {
 				panel.add(scrollPane);
 				{
 					table = new JTable();
-					table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 					table.addMouseListener(new MouseAdapter() {
 						@Override
 						public void mouseClicked(MouseEvent e) {
@@ -81,37 +80,38 @@ public class ListarMedico extends JDialog {
 								btnEliminar.setEnabled(true);
 								btnModificar.setEnabled(true);
 								String codigo = table.getValueAt(index, 0).toString();
-								selected = ClinicaMedica.getInstance().buscarMedicoByCod(codigo);
+								selected = ClinicaMedica.getInstance().buscarVacunaByCod(codigo);
 							}
 						}
 					});
+					table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+					scrollPane.setViewportView(table);
 					modelo = new DefaultTableModel();
-					String[] identificadores = {"Código", "Nombre", "Teléfono", "Puesto", "Especialidad"};
+					String[] identificadores = {"Código", "Nombre", "Fabricante", "Dosis"};
 					modelo.setColumnIdentifiers(identificadores);
 					table.setModel(modelo);
-					scrollPane.setViewportView(table);
 				}
 			}
 		}
 		{
 			JPanel buttonPane = new JPanel();
-			buttonPane.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+			buttonPane.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
-			 btnModificar = new JButton("Modificar");
-			 btnModificar.addActionListener(new ActionListener() {
-			 	public void actionPerformed(ActionEvent e) {
-			 		if(selected!=null) {
-						RegistrarMedico reg = new RegistrarMedico(selected);
-						reg.setModal(true);
-						reg.setVisible(true);
-						btnModificar.setEnabled(false);
-						btnEliminar.setEnabled(false);
-					}
-			 	}
-			 });
-				btnModificar.setEnabled(false);
+				 btnModificar = new JButton("Modificar");
+				 btnModificar.addActionListener(new ActionListener() {
+				 	public void actionPerformed(ActionEvent e) {
+				 		if(selected!=null) {
+							RegistrarVacunas reg = new RegistrarVacunas(selected);
+							reg.setModal(true);
+							reg.setVisible(true);
+							btnModificar.setEnabled(false);
+							btnEliminar.setEnabled(false);
+						}
+				 	}
+				 });
+				 btnModificar.setEnabled(false);
 				buttonPane.add(btnModificar);
 			}
 			{
@@ -119,12 +119,12 @@ public class ListarMedico extends JDialog {
 				btnEliminar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						if(selected!=null) {
-							int option = JOptionPane.showConfirmDialog(null, "Esta seguro que quiere borrar el médico? Código: "+selected.getCodMedico(), "Eliminar", JOptionPane.WARNING_MESSAGE);
+							int option = JOptionPane.showConfirmDialog(null, "Esta seguro que quiere borrar la vacuna? Código: "+selected.getCodigoVacuna(), "Eliminar", JOptionPane.WARNING_MESSAGE);
 							if(option == JOptionPane.OK_OPTION) {
-								ClinicaMedica.getInstance().eliminarMedico(selected);
+								ClinicaMedica.getInstance().eliminarVacuna(selected);
 								btnEliminar.setEnabled(false);
 								btnModificar.setEnabled(false);
-								loadMedicos();
+								loadVacunas();
 							}
 						}
 					}
@@ -135,32 +135,30 @@ public class ListarMedico extends JDialog {
 				getRootPane().setDefaultButton(btnEliminar);
 			}
 			{
-				JButton cancelButton = new JButton("Cancelar");
-				cancelButton.addActionListener(new ActionListener() {
+				JButton btnCancelar = new JButton("Cancelar");
+				btnCancelar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						dispose();
 					}
 				});
-				cancelButton.setActionCommand("Cancelar");
-				buttonPane.add(cancelButton);
+				btnCancelar.setActionCommand("Cancel");
+				buttonPane.add(btnCancelar);
 			}
 		}
-		loadMedicos();
+		loadVacunas();
 	}
 	
-	
-	public static void loadMedicos(){
+	public static void loadVacunas(){
 
 		modelo.setRowCount(0);
-		ArrayList<Medico> aux = ClinicaMedica.getInstance().getListaMedicos();
+		ArrayList<Vacuna> aux = ClinicaMedica.getInstance().getListaVacunas();
 		row = new Object[table.getColumnCount()];
 
-		for(Medico medicos : aux) {
-			row[0] = medicos.getCodMedico();
-			row[1] = medicos.getNombre();
-			row[2] = medicos.getTelefono();
-			row[3] = medicos.getPuesto();
-			row[4] = medicos.getEspecialidad();
+		for(Vacuna vacunas : aux) {
+			row[0] = vacunas.getCodigoVacuna();
+			row[1] = vacunas.getNombre();
+			row[2] = vacunas.getFabricante();
+			row[3] = vacunas.getDosis();
 			modelo.addRow(row);
 		}
 	}
