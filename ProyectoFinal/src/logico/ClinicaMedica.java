@@ -99,6 +99,23 @@ public class ClinicaMedica {
 	
 	
 	
+	public Enfermedad buscarEnfermedadByCod(String codigo) {
+		boolean encontrado = false;
+		Enfermedad aux = null;
+		int i = 0;
+		while (!encontrado && i < listaEnfermedad.size()) {
+			if (listaEnfermedad.get(i).getIdEnfermedad().equalsIgnoreCase(codigo)) {
+				aux = listaEnfermedad.get(i);
+				encontrado = true;
+			}
+			i++;
+		}
+
+		return aux;
+	}
+	
+	
+	
 	public void insertarMedico(Medico medico) {
 		listaMedicos.add(medico);
 		codMedico++;
@@ -155,6 +172,10 @@ public class ClinicaMedica {
 		listaVacunas.remove(aux);	
 	}
 	
+	public void eliminarEnfermedad(Enfermedad aux) {
+		listaEnfermedad.remove(aux);	
+	}
+	
 	public ArrayList<Cita> getCitasPorMedico(String codMedico) {
 	    ArrayList<Cita> citasPorMedico = new ArrayList<>();
 	    for (Cita cita : listaCita) {
@@ -196,6 +217,22 @@ public class ClinicaMedica {
 		}
 		return vacuna;
 	}
+	
+	
+	public int buscarEnfermedadByCodIndex(String codigo) {
+		int enfermedad = -1;
+		boolean encontrado = false;
+		int i = 0;
+		while(!encontrado && i < listaEnfermedad.size()) {
+			if(listaEnfermedad.get(i).getIdEnfermedad().equalsIgnoreCase(codigo)) {
+				enfermedad = i;
+				encontrado = true;
+			}
+			i++;
+		}
+		return enfermedad;
+	}
+
 
 
 
@@ -210,6 +247,13 @@ public class ClinicaMedica {
 		int index = buscarVacunaByCodIndex(updated.getCodigoVacuna());
 			if(index!= -1) {
 			listaVacunas.set(index, updated);
+			}
+		}
+	
+	public void modificarEnfermedad(Enfermedad updated) {
+		int index = buscarEnfermedadByCodIndex(updated.getIdEnfermedad());
+			if(index!= -1) {
+			listaEnfermedad.set(index, updated);
 			}
 		}
 

@@ -182,10 +182,31 @@ public class MenuAdmin extends JFrame {
 		menuBar.add(mnEnfermedades);
 		
 		JMenuItem mntmRegistrarVacs = new JMenuItem("   Registrar Enfermedades");
+		mntmRegistrarVacs.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				RegistrarEnfermedades regEnfermedad = new RegistrarEnfermedades(null);
+				regEnfermedad.setModal(true);
+				regEnfermedad.setVisible(true);
+				
+			}
+		});
 		mntmRegistrarVacs.setFont(new Font("Segoe UI", Font.PLAIN, 20));
 		mnEnfermedades.add(mntmRegistrarVacs);
 		
 		JMenuItem mntmListarEnfermedades = new JMenuItem("   Listar Enfermedades");
+		mntmListarEnfermedades.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				if(ClinicaMedica.getInstance().getListaEnfermedad().isEmpty()) {
+					JOptionPane.showMessageDialog(null, "No hay enfermedades registradas. Por favor, registre una primero.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+				}
+				else {
+				ListarEnfermedades listaEnfermedad = new ListarEnfermedades();
+				listaEnfermedad.setModal(true);
+				listaEnfermedad.setVisible(true);
+				}
+			}
+		});
 		mntmListarEnfermedades.setFont(new Font("Segoe UI", Font.PLAIN, 20));
 		mnEnfermedades.add(mntmListarEnfermedades);
 		

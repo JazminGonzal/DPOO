@@ -10,12 +10,12 @@ public class Enfermedad {
 	
 	
 	
-	public Enfermedad(String idEnfermedad, String nombre, String descripcion) {
+	public Enfermedad(String idEnfermedad, String nombre, String descripcion, boolean bajoVigilancia) {
 		super();
 		this.idEnfermedad = idEnfermedad;
 		this.nombre = nombre;
 		this.descripcion = descripcion;
-		this.bajoVigilancia = false;
+		this.bajoVigilancia = bajoVigilancia;
 	}
 	
 	
