@@ -13,6 +13,8 @@ import java.awt.Font;
 import java.awt.Image;
 
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
@@ -20,6 +22,9 @@ import javax.swing.JLabel;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.border.LineBorder;
+
+import logico.ClinicaMedica;
+
 import javax.swing.JButton;
 
 public class MenuRegular extends JFrame {
@@ -100,6 +105,18 @@ public class MenuRegular extends JFrame {
 		menuBar.add(mnPacientes);
 		
 		JMenuItem mntmListarPacientes = new JMenuItem("   Listar Pacientes");
+		mntmListarPacientes.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(ClinicaMedica.getInstance().getListaPacientes().isEmpty()) {
+					JOptionPane.showMessageDialog(null, "No hay pacientes registrados. Por favor, registre uno primero.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+				}
+				else {
+				ListarPaciente listaPacientes = new ListarPaciente();
+				listaPacientes.setModal(true);
+				listaPacientes.setVisible(true);
+				}
+			}
+		});
 		mntmListarPacientes.setFont(new Font("Segoe UI", Font.PLAIN, 20));
 		mnPacientes.add(mntmListarPacientes);
 		
@@ -110,6 +127,18 @@ public class MenuRegular extends JFrame {
 		menuBar.add(mnMdicos);
 		
 		JMenuItem mntmListarMdicos = new JMenuItem("   Listar M\u00E9dicos");
+		mntmListarMdicos.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(ClinicaMedica.getInstance().getListaMedicos().isEmpty()) {
+					JOptionPane.showMessageDialog(null, "No hay médicos registrados. Por favor, registre uno primero.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+				}
+				else {
+				ListarMedico listaMedicos = new ListarMedico();
+				listaMedicos.setModal(true);
+				listaMedicos.setVisible(true);
+				}
+			}
+		});
 		mntmListarMdicos.setFont(new Font("Segoe UI", Font.PLAIN, 20));
 		mnMdicos.add(mntmListarMdicos);
 		
