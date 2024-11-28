@@ -114,6 +114,16 @@ public class ListarPaciente extends JDialog {
 						}
 					}
 				});
+				{
+					JButton btnVerHistorial = new JButton("Ver Historial");
+					btnVerHistorial.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent e) {
+							
+						}
+					});
+					btnVerHistorial.setEnabled(false);
+					buttonPane.add(btnVerHistorial);
+				}
 				buttonPane.add(btnModificar);
 			}
 			{

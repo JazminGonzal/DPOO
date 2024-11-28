@@ -125,7 +125,7 @@ public class ConsultasPorMedico extends JDialog {
         		int selectedRow = table.getSelectedRow();
         		String CodCita = (String) table.getValueAt(selectedRow, 0);
         		Cita citaSelected = ClinicaMedica.getInstance().buscarCitaById(CodCita);
-        		
+        		dispose();
         		RegistrarConsulta regConsulta = new RegistrarConsulta(citaSelected);
         		regConsulta.setModal(true);
         		regConsulta.setVisible(true);

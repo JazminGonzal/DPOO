@@ -104,14 +104,16 @@ public class LoginMedico extends JFrame {
                 Medico medico = ClinicaMedica.getInstance().buscarMedicoByCod(codigo);
 
                 if (medico != null && contrasena.equals("1234")) {
-                    ConsultasPorMedico consultas = new ConsultasPorMedico(codigo);
-                    consultas.loadCitasDelMedico(codigo);
+                	dispose();
+                    ConsultasPorMedico consultas = new ConsultasPorMedico(codigo);   
                     consultas.setModal(true);
                     consultas.setVisible(true);
                     dispose();
                 } else {
                     JOptionPane.showMessageDialog(null, "Código o contraseña incorrectos.", "Error", JOptionPane.ERROR_MESSAGE);
                 }
+                
+                dispose();
             }
         });
 
