@@ -21,6 +21,7 @@ public class ClinicaMedica {
 	public static int codEnfermedad = 1;
 	public static int codVacuna = 1;
 	public static int codCita = 1;
+	public static int codDiagnostico = 1;
 
 	
 	public static ClinicaMedica getInstance() {
