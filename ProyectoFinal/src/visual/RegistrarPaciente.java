@@ -26,6 +26,7 @@ import java.util.Date;
 import java.awt.event.ActionEvent;
 import javax.swing.SpinnerDateModel;
 import java.util.Calendar;
+import javax.swing.JSeparator;
 
 public class RegistrarPaciente extends JDialog {
 
@@ -78,7 +79,7 @@ public class RegistrarPaciente extends JDialog {
 				} 
 				lblRegistroDePacientes.setForeground(new Color(47, 79, 79));
 				lblRegistroDePacientes.setFont(new Font("Tahoma", Font.BOLD, 23));
-				lblRegistroDePacientes.setBounds(314, 48, 422, 37);
+				lblRegistroDePacientes.setBounds(314, 26, 422, 37);
 				panel.add(lblRegistroDePacientes);
 			}
 			{
@@ -153,12 +154,18 @@ public class RegistrarPaciente extends JDialog {
 			spnFechNac = new JSpinner();
 			spnFechNac.setModel(new SpinnerDateModel(new Date(1732766400000L), null, null, Calendar.WEEK_OF_MONTH));
 			spnFechNac.setBounds(581, 267, 233, 26);
+			JSpinner.DateEditor de_spnNacimiento = new JSpinner.DateEditor(spnFechNac, "yyyy-MM-dd"); // Formato de fecha
+	        spnFechNac.setEditor(de_spnNacimiento);
 			panel.add(spnFechNac);
 			
 			JLabel lblNewLabel_6 = new JLabel("Nacimiento:");
 			lblNewLabel_6.setFont(new Font("Tahoma", Font.BOLD, 18));
 			lblNewLabel_6.setBounds(456, 269, 110, 20);
 			panel.add(lblNewLabel_6);
+			
+			JSeparator separator = new JSeparator();
+			separator.setBounds(56, 75, 764, 2);
+			panel.add(separator);
 		}
 		{
 			JPanel buttonPane = new JPanel();

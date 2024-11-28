@@ -44,6 +44,8 @@ public class RegistrarCita extends JDialog {
 	private JTextField txtMotivo;
 	private JComboBox cbxMedico;
 	private  JOptionPane spnFechaCita;
+	private JSpinner spnFechaCita_1;
+	private JSpinner spnNacimiento_1;
 
 	/**
 	 * Launch the application.
@@ -99,12 +101,12 @@ public class RegistrarCita extends JDialog {
 		panel.add(lblNacimiento);
 
 		// Configuración del JSpinner para mostrar solo la fecha
-		JSpinner spnNacimiento = new JSpinner();
-		spnNacimiento.setModel(new SpinnerDateModel(new Date(), null, null, Calendar.DAY_OF_MONTH));
-		spnNacimiento.setBounds(519, 39, 162, 26);
-		JSpinner.DateEditor de_spnNacimiento = new JSpinner.DateEditor(spnNacimiento, "yyyy-MM-dd"); // Formato de fecha
-		spnNacimiento.setEditor(de_spnNacimiento);
-		panel.add(spnNacimiento);
+		spnNacimiento_1 = new JSpinner();
+		spnNacimiento_1.setModel(new SpinnerDateModel(new Date(), null, null, Calendar.DAY_OF_MONTH));
+		spnNacimiento_1.setBounds(519, 39, 162, 26);
+		JSpinner.DateEditor de_spnNacimiento_1 = new JSpinner.DateEditor(spnNacimiento_1, "yyyy-MM-dd"); // Formato de fecha
+		spnNacimiento_1.setEditor(de_spnNacimiento_1);
+		panel.add(spnNacimiento_1);
 
 		JLabel label_2 = new JLabel("Teléfono:");
 		label_2.setBounds(722, 42, 69, 20);
@@ -163,12 +165,12 @@ public class RegistrarCita extends JDialog {
 		panel_1.add(lblFechaDeCita);
 
 		// Configuración del JSpinner para la fecha de la cita
-		JSpinner spnFechaCita = new JSpinner();
-		spnFechaCita.setModel(new SpinnerDateModel(new Date(), null, null, Calendar.MINUTE)); // Fecha y hora actuales
-		JSpinner.DateEditor editor = new JSpinner.DateEditor(spnFechaCita, "yyyy-MM-dd HH:mm"); // Formato deseado
-		spnFechaCita.setEditor(editor);
-		spnFechaCita.setBounds(406, 102, 162, 26); // Posición en el panel
-		panel_1.add(spnFechaCita); // Añadir el spinner al panel
+		spnFechaCita_1 = new JSpinner();
+		spnFechaCita_1.setModel(new SpinnerDateModel(new Date(), null, null, Calendar.MINUTE)); // Fecha y hora actuales
+		JSpinner.DateEditor de_spnFechaCita_1 = new JSpinner.DateEditor(spnFechaCita_1, "yyyy-MM-dd HH:mm"); // Formato deseado
+		spnFechaCita_1.setEditor(de_spnFechaCita_1);
+		spnFechaCita_1.setBounds(406, 102, 162, 26); // Posición en el panel
+		panel_1.add(spnFechaCita_1); // Añadir el spinner al panel
 
        
 
@@ -214,7 +216,7 @@ public class RegistrarCita extends JDialog {
 			public void actionPerformed(ActionEvent e) {
 
 				Paciente paciente = new Paciente(txtCedula.getText(), txtNombre.getText(), txtTelefono.getText(),
-						txtDireccion.getText(), (Date) spnNacimiento.getValue(), txtIdPaciente.getText());
+						txtDireccion.getText(), (Date) spnNacimiento_1.getValue(), txtIdPaciente.getText());
 
 				ClinicaMedica.getInstance().insertarPaciente(paciente);
 
@@ -222,7 +224,7 @@ public class RegistrarCita extends JDialog {
 
 				if (medico != null) {
 
-					Date fechaCita = (Date) spnFechaCita.getValue();
+					Date fechaCita = (Date) spnFechaCita_1.getValue();
 					String motivo = txtMotivo.getText();
 					String idCita = txtIdCita.getText();
 					Cita cita = new Cita(idCita, paciente, medico, fechaCita, motivo);
