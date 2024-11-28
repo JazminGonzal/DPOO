@@ -10,7 +10,10 @@ import javax.swing.table.DefaultTableModel;
 
 import logico.Cita;
 import logico.ClinicaMedica;
+import logico.Consulta;
+import logico.Diagnostico;
 import logico.Enfermedad;
+import logico.HistoriaClinica;
 import logico.Medico;
 import logico.Paciente;
 import logico.Vacuna;
@@ -41,6 +44,8 @@ public class RegistrarConsulta extends JDialog {
     private JTextField txtCodConsulta;
     private JTextField txtDireccion;
     private JTextField txtDoctor;
+    private JRadioButton rdbtnImportante;
+    private JRadioButton rdbtnEnfermo;
     
     private  Paciente paciente;
     private Medico medico;
@@ -270,11 +275,6 @@ public class RegistrarConsulta extends JDialog {
         }
         
 
-        // Listeners para agregar o quitar elementos
-       // btnAgregarEnfermedad.addActionListener(e -> agregarEnfermedad());
-       // btnQuitarEnfermedad.addActionListener(e -> quitarEnfermedad());
-       // btnAgregarVacuna.addActionListener(e -> agregarVacuna());
-       // btnQuitarVacuna.addActionListener(e -> quitarVacuna());
 
         JPanel buttonPane = new JPanel();
 		buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
@@ -305,9 +305,72 @@ public class RegistrarConsulta extends JDialog {
 
 		okButton.addActionListener(new ActionListener() {
 		    public void actionPerformed(ActionEvent e) {
-		       
+		        boolean esImportante = rdbtnImportante.isSelected();
+		        boolean esEnfermo = rdbtnEnfermo.isSelected();
+
+		
+		        ArrayList<Vacuna> vacunasSeleccionadas = paciente.getMisVacunas();
+		        ArrayList<Enfermedad> enfermedadesIniciales = new ArrayList<>(paciente.getMisEnfermedades());
+		        ArrayList<Enfermedad> enfermedadesFinales = paciente.getMisEnfermedades();
+
+		        ArrayList<Enfermedad> nuevasEnfermedades = new ArrayList<>();
+		        for (Enfermedad enfermedad : enfermedadesFinales) {
+		            if (!enfermedadesIniciales.contains(enfermedad)) {
+		                nuevasEnfermedades.add(enfermedad);
+		            }
+		        }
+
+		        String enfermedadesNuevas = "";
+		        for (Enfermedad nueva : nuevasEnfermedades) {
+		            enfermedadesNuevas += nueva.getNombre() + ", ";
+		        }
+
+		        if (!enfermedadesNuevas.isEmpty()) {
+		            enfermedadesNuevas = enfermedadesNuevas.substring(0, enfermedadesNuevas.length() - 2);
+		        }
+
+		        Consulta nuevaConsulta = new Consulta(txtCodConsulta.getText(),paciente,medico,
+		            fechaCita,txtMotivo.getText(),enfermedadesNuevas, esImportante, esEnfermo
+		        );
+
+		        
+		        if (esImportante) {
+		            ArrayList<Diagnostico> nuevosDiagnosticos = new ArrayList<>();
+		            for (Enfermedad enfermedad : nuevasEnfermedades) {
+		                Diagnostico diagnostico = new Diagnostico(
+		                    "Diag-" + ClinicaMedica.codDiagnostico,
+		                    paciente,
+		                    enfermedad,
+		                    esEnfermo
+		                );
+		                nuevosDiagnosticos.add(diagnostico);
+		            }
+
+		            HistoriaClinica historial = ClinicaMedica.getInstance().buscarHistorialByPaciente(paciente);
+
+		            if (historial == null) {
+		                historial = new HistoriaClinica(
+		                    "Hist-" + ClinicaMedica.codHistorial,
+		                    paciente,
+		                    vacunasSeleccionadas,
+		                    nuevosDiagnosticos
+		                );
+		                ClinicaMedica.getInstance().insertarHistorial(historial);
+		            } else {
+		                historial.getMisVacunas().addAll(vacunasSeleccionadas);
+		                historial.getMisDiagnosticos().addAll(nuevosDiagnosticos);
+		            }
+		        }
+
+		        // Registrar la consulta
+		        ClinicaMedica.getInstance().insertarConsulta(nuevaConsulta);
+
+		        JOptionPane.showMessageDialog(contentPanel, "Consulta registrada exitosamente.");
+		        dispose();
 		    }
 		});
+
+
 
 
 		cancelButton.addActionListener(new ActionListener() {

@@ -8,6 +8,7 @@ public class HistoriaClinica {
 	private Paciente paciente;
 	private ArrayList<Vacuna> misVacunas;
 	private ArrayList<Diagnostico>misDiagnosticos;
+	
 	public HistoriaClinica(String idHistorial, Paciente paciente, ArrayList<Vacuna> misVacunas,
 			ArrayList<Diagnostico> misDiagnosticos) {
 		super();

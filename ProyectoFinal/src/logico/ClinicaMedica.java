@@ -333,6 +333,17 @@ public class ClinicaMedica {
 
 	
 	
+	public HistoriaClinica buscarHistorialByPaciente(Paciente paciente) {
+	    for (HistoriaClinica historial : listaHistorial) {
+	        if (historial.getPaciente().getCedula().equals(paciente.getCedula())) {
+	            return historial;
+	        }
+	    }
+	    return null;
+	}
+
+	
+	
 	
 	
 	
