@@ -234,6 +234,7 @@ public class MenuAdmin extends JFrame {
 		JButton btnNewButton = new JButton("Volver a pantalla de Inicio");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
 				PantallaInicio pantInicio = new PantallaInicio();
 				pantInicio.setVisible(true);
 				dispose();

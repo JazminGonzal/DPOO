@@ -20,7 +20,6 @@ public class ConsultasPorMedico extends JDialog {
     private static JTable table;
     private static DefaultTableModel modelo;
     private static Object[] row;
-    private int index = -1;
     private JButton btnEliminar;
     private JButton btnModificar;
     private JSpinner spinnerFecha;
@@ -44,6 +43,7 @@ public class ConsultasPorMedico extends JDialog {
         contentPanel.setBackground(Color.LIGHT_GRAY);
         contentPanel.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
         getContentPane().add(contentPanel, BorderLayout.CENTER);
+		setLocationRelativeTo(null);
 
         // Panel superior con el logo y el nombre de la clínica
         JPanel panelEncabezado = new JPanel();
@@ -122,9 +122,15 @@ public class ConsultasPorMedico extends JDialog {
         btnModificar = new JButton("Consultar");
         btnModificar.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-        		RegistrarConsulta regConsulta = new RegistrarConsulta();
+        		int selectedRow = table.getSelectedRow();
+        		String CodCita = (String) table.getValueAt(selectedRow, 0);
+        		Cita citaSelected = ClinicaMedica.getInstance().buscarCitaById(CodCita);
+        		
+        		RegistrarConsulta regConsulta = new RegistrarConsulta(citaSelected);
         		regConsulta.setModal(true);
         		regConsulta.setVisible(true);
+        		
+        		dispose();
         	}
         });
         btnModificar.setEnabled(false);

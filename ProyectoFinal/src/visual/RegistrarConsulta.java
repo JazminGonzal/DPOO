@@ -8,14 +8,17 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
+import logico.Cita;
 import logico.ClinicaMedica;
 import logico.Enfermedad;
+import logico.Medico;
 import logico.Paciente;
 import logico.Vacuna;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Calendar;
@@ -31,7 +34,6 @@ public class RegistrarConsulta extends JDialog {
     private DefaultTableModel modelEnfermedadesPaciente;
     private DefaultTableModel modelVacunasDisponibles;
     private DefaultTableModel modelVacunasPaciente;
-    private Paciente pacienteActual; // Cliente seleccionado
     private JButton btnAgregarEnfermedad, btnQuitarEnfermedad, btnAgregarVacuna, btnQuitarVacuna;
     private JTextField txtNombre;
     private JTextField txtCedula;
@@ -39,10 +41,15 @@ public class RegistrarConsulta extends JDialog {
     private JTextField txtCodConsulta;
     private JTextField txtDireccion;
     private JTextField txtDoctor;
+    
+    private  Paciente paciente;
+    private Medico medico;
+    private Date fechaCita;
+    private String motivo;
 
     public static void main(String[] args) {
         try {
-            RegistrarConsulta dialog = new RegistrarConsulta();
+            RegistrarConsulta dialog = new RegistrarConsulta(null);
             dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
             dialog.setVisible(true);
         } catch (Exception e) {
@@ -50,14 +57,15 @@ public class RegistrarConsulta extends JDialog {
         }
     }
 
-    public RegistrarConsulta() {
+    public RegistrarConsulta(Cita citaSelected) {
         setTitle("Registrar Consulta");
         setBounds(100, 100, 1114, 641);
         getContentPane().setLayout(new BorderLayout());
         contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
         getContentPane().add(contentPanel, BorderLayout.CENTER);
         contentPanel.setLayout(null);
-        setLocationRelativeTo(null);
+
+		setLocationRelativeTo(null);
 
         // Panel de enfermedades disponibles
         JPanel panelEnfermedadesDisponibles = new JPanel();
@@ -138,10 +146,20 @@ public class RegistrarConsulta extends JDialog {
 
         // Botones para mover vacunas
         btnAgregarVacuna = new JButton("Agregar Vacuna >>");
+        btnAgregarVacuna.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		agregarVacuna();
+        	}
+        });
         btnAgregarVacuna.setBounds(25, 458, 181, 29);
         contentPanel.add(btnAgregarVacuna);
 
         btnQuitarVacuna = new JButton("<< Quitar Vacuna");
+        btnQuitarVacuna.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		quitarVacuna();
+        	}
+        });
         btnQuitarVacuna.setBounds(25, 499, 181, 29);
         contentPanel.add(btnQuitarVacuna);
         
@@ -228,12 +246,35 @@ public class RegistrarConsulta extends JDialog {
         JRadioButton rdbtnEnfermo = new JRadioButton("Paciente Enfermo");
         rdbtnEnfermo.setBounds(842, 96, 192, 29);
         panel.add(rdbtnEnfermo);
+        
+        
+        
+        
+        if (citaSelected != null) {
+            Paciente paciente = citaSelected.getPaciente();
+            Medico medico = citaSelected.getMedico();
+            Date fechaCita = citaSelected.getFechaCita();
+            String motivo = citaSelected.getMotivo();
+
+            txtNombre.setText(paciente.getNombre());
+            txtCedula.setText(paciente.getCedula());
+            txtMotivo.setText(motivo);
+            txtDoctor.setText(medico != null ? medico.getNombre() : "No asignado");
+
+            JSpinner.DateEditor editor = (JSpinner.DateEditor) spinner.getEditor();
+            SimpleDateFormat dateFormat = editor.getFormat();
+            spinner.setValue(fechaCita != null ? fechaCita : new Date());
+
+            txtDireccion.setText(paciente.getDireccion());
+
+        }
+        
 
         // Listeners para agregar o quitar elementos
-        btnAgregarEnfermedad.addActionListener(e -> agregarEnfermedad());
-        btnQuitarEnfermedad.addActionListener(e -> quitarEnfermedad());
-        btnAgregarVacuna.addActionListener(e -> agregarVacuna());
-        btnQuitarVacuna.addActionListener(e -> quitarVacuna());
+       // btnAgregarEnfermedad.addActionListener(e -> agregarEnfermedad());
+       // btnQuitarEnfermedad.addActionListener(e -> quitarEnfermedad());
+       // btnAgregarVacuna.addActionListener(e -> agregarVacuna());
+       // btnQuitarVacuna.addActionListener(e -> quitarVacuna());
 
         JPanel buttonPane = new JPanel();
 		buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
@@ -252,13 +293,13 @@ public class RegistrarConsulta extends JDialog {
 
 		btnAgregarEnfermedad.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
+				agregarEnfermedad();
 			}
 		});
 
 		btnQuitarEnfermedad.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				quitarEnfermedad();
 			}
 		});
 
@@ -277,7 +318,6 @@ public class RegistrarConsulta extends JDialog {
 
 
 		
-        // Cargar datos iniciales
         loadEnfermedadesDisponibles();
         loadVacunasDisponibles();
     }
@@ -289,6 +329,7 @@ public class RegistrarConsulta extends JDialog {
             modelEnfermedadesDisponibles.addRow(new Object[]{enfermedad.getIdEnfermedad(), enfermedad.getNombre()});
         }
     }
+    
 
     private void loadVacunasDisponibles() {
         ArrayList<Vacuna> vacunas = ClinicaMedica.getInstance().getListaVacunas();
@@ -308,7 +349,7 @@ public class RegistrarConsulta extends JDialog {
             modelEnfermedadesPaciente.addRow(new Object[]{idEnfermedad, nombreEnfermedad}); 
 
             Enfermedad enfermedadSeleccionada = ClinicaMedica.getInstance().buscarEnfermedadByCod(idEnfermedad);
-            pacienteActual.getMisEnfermedades().add(enfermedadSeleccionada);
+            paciente.getMisEnfermedades().add(enfermedadSeleccionada);
         } else {
             JOptionPane.showMessageDialog(this, "Seleccione una enfermedad.");
         }
@@ -324,7 +365,7 @@ public class RegistrarConsulta extends JDialog {
             modelEnfermedadesDisponibles.addRow(new Object[]{idEnfermedad, nombreEnfermedad}); 
 
             Enfermedad enfermedadSeleccionada = ClinicaMedica.getInstance().buscarEnfermedadByCod(idEnfermedad);
-            pacienteActual.getMisEnfermedades().remove(enfermedadSeleccionada);
+            paciente.getMisEnfermedades().remove(enfermedadSeleccionada);
         } else {
             JOptionPane.showMessageDialog(this, "Seleccione una enfermedad.");
         }
@@ -341,7 +382,7 @@ public class RegistrarConsulta extends JDialog {
             modelVacunasPaciente.addRow(new Object[]{idVacuna, nombreVacuna}); 
 
             Vacuna vacunaSeleccionada = ClinicaMedica.getInstance().buscarVacunaByCod(idVacuna);
-            pacienteActual.getMisVacunas().add(vacunaSeleccionada);
+            paciente.getMisVacunas().add(vacunaSeleccionada);
         } else {
             JOptionPane.showMessageDialog(this, "Seleccione una vacuna.");
         }
@@ -357,7 +398,7 @@ public class RegistrarConsulta extends JDialog {
             modelVacunasDisponibles.addRow(new Object[]{idVacuna, nombreVacuna}); 
 
             Vacuna vacunaSeleccionada = ClinicaMedica.getInstance().buscarVacunaByCod(idVacuna);
-            pacienteActual.getMisVacunas().remove(vacunaSeleccionada);
+            paciente.getMisVacunas().remove(vacunaSeleccionada);
         } else {
             JOptionPane.showMessageDialog(this, "Seleccione una vacuna.");
         }
