@@ -12,6 +12,7 @@ public class ClinicaMedica {
 	private ArrayList<Vacuna>listaVacunas;
 	private ArrayList<Diagnostico>listaDiagnostico;
 	private ArrayList<Cita>listaCita;
+	private ArrayList<Usuario> misUsuarios;
 	private static ClinicaMedica miclinica = null;
 	
 	public static int codMedico = 1;
@@ -43,6 +44,7 @@ public class ClinicaMedica {
 		this.listaVacunas = new ArrayList<>();
 		this.listaDiagnostico = new ArrayList<>();
 		this.listaCita = new ArrayList<>();
+		this.misUsuarios = new ArrayList<>();
 	}
 	
 
