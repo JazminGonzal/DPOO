@@ -115,6 +115,22 @@ public class ClinicaMedica {
 	}
 	
 	
+	public Paciente buscarPacienteByCod(String codigo) {
+		boolean encontrado = false;
+		Paciente aux = null;
+		int i = 0;
+		while (!encontrado && i < listaPacientes.size()) {
+			if (listaPacientes.get(i).getCodPaciente().equalsIgnoreCase(codigo)) {
+				aux = listaPacientes.get(i);
+				encontrado = true;
+			}
+			i++;
+		}
+
+		return aux;
+	}
+	
+	
 	
 	public void insertarMedico(Medico medico) {
 		listaMedicos.add(medico);
@@ -176,6 +192,10 @@ public class ClinicaMedica {
 		listaEnfermedad.remove(aux);	
 	}
 	
+	public void eliminarPaciente(Paciente aux) {
+		listaPacientes.remove(aux);	
+	}
+	
 	public ArrayList<Cita> getCitasPorMedico(String codMedico) {
 	    ArrayList<Cita> citasPorMedico = new ArrayList<>();
 	    for (Cita cita : listaCita) {
@@ -234,6 +254,19 @@ public class ClinicaMedica {
 	}
 
 
+	public int buscarPacienteByCodIndex(String codigo) {
+		int paciente = -1;
+		boolean encontrado = false;
+		int i = 0;
+		while(!encontrado && i < listaPacientes.size()) {
+			if(listaPacientes.get(i).getCodPaciente().equalsIgnoreCase(codigo)) {
+				paciente = i;
+				encontrado = true;
+			}
+			i++;
+		}
+		return paciente;
+	}
 
 
 	public void modificarMedico(Medico updated) {
@@ -254,6 +287,13 @@ public class ClinicaMedica {
 		int index = buscarEnfermedadByCodIndex(updated.getIdEnfermedad());
 			if(index!= -1) {
 			listaEnfermedad.set(index, updated);
+			}
+		}
+	
+	public void modificarPaciente(Paciente updated) {
+		int index = buscarPacienteByCodIndex(updated.getCodPaciente());
+			if(index!= -1) {
+			listaPacientes.set(index, updated);
 			}
 		}
 

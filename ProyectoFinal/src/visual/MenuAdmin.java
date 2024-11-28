@@ -100,10 +100,32 @@ public class MenuAdmin extends JFrame {
 		menuBar.add(menu_1);
 		
 		JMenuItem mntmRegistrarPacientes = new JMenuItem("   Registrar Pacientes");
+		mntmRegistrarPacientes.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				RegistrarPaciente regPaciente = new RegistrarPaciente(null);
+				regPaciente.setModal(true);
+				regPaciente.setVisible(true);
+				
+			}
+		});
 		mntmRegistrarPacientes.setFont(new Font("Segoe UI", Font.PLAIN, 20));
 		menu_1.add(mntmRegistrarPacientes);
 		
 		JMenuItem menuItem_2 = new JMenuItem("   Listar Pacientes");
+		menuItem_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				if(ClinicaMedica.getInstance().getListaPacientes().isEmpty()) {
+					JOptionPane.showMessageDialog(null, "No hay pacientes registrados. Por favor, registre uno primero.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+				}
+				else {
+				ListarPaciente listaPacientes = new ListarPaciente();
+				listaPacientes.setModal(true);
+				listaPacientes.setVisible(true);
+				}
+				
+			}
+		});
 		menuItem_2.setFont(new Font("Segoe UI", Font.PLAIN, 20));
 		menu_1.add(menuItem_2);
 		

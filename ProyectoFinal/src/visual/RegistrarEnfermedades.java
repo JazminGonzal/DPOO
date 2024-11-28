@@ -74,7 +74,7 @@ public class RegistrarEnfermedades extends JDialog {
 			}
 			lblRegistroDeEnfermedades.setForeground(new Color(47, 79, 79));
 			lblRegistroDeEnfermedades.setFont(new Font("Tahoma", Font.BOLD, 23));
-			lblRegistroDeEnfermedades.setBounds(208, 52, 314, 37);
+			lblRegistroDeEnfermedades.setBounds(208, 52, 422, 37);
 			panel.add(lblRegistroDeEnfermedades);
 			
 			JSeparator separator = new JSeparator();
