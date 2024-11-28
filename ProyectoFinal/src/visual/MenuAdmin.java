@@ -27,6 +27,8 @@ import logico.ClinicaMedica;
 
 
 import javax.swing.JButton;
+import java.awt.Insets;
+import java.awt.SystemColor;
 
 public class MenuAdmin extends JFrame {
 
@@ -64,10 +66,16 @@ public class MenuAdmin extends JFrame {
 		setSize(dim.width, dim.height - 10);
 		setLocationRelativeTo(null);
 		
+		JLabel lblClinica = new JLabel("                     CL\u00CDNICA PRIVADA ALONSO   ");
+		lblClinica.setForeground(SystemColor.menu);
+		lblClinica.setFont(new Font("Verdana", Font.BOLD, 24));
+		lblClinica.setBounds(969, 70, 407, 48);
+		//contentPane.add(lblClinica);
+		
 		JMenuBar menuBar = new JMenuBar();
 		menuBar.setMaximumSize(new Dimension(0, 10));
 		menuBar.setBackground(new Color(47, 79, 79));
-		menuBar.setBounds(0, 0, 1898, 40);
+		menuBar.setBounds(0, 0, 1898, 85);
 		contentPane.add(menuBar);
 		
 		JMenu menu = new JMenu("   Citas   ");
@@ -81,9 +89,16 @@ public class MenuAdmin extends JFrame {
 		JMenuItem menuItem = new JMenuItem("   Realizar Cita");
 		menuItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				RegistrarCita regCita = new RegistrarCita();
-				regCita.setModal(true);
-				regCita.setVisible(true);
+				
+				
+				if(ClinicaMedica.getInstance().getListaMedicos().isEmpty()) {
+					JOptionPane.showMessageDialog(null, "No hay médicos registrados. Por favor, registre uno primero antes de crear una cita.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+				}
+				else {
+					RegistrarCita regCita = new RegistrarCita();
+					regCita.setModal(true);
+					regCita.setVisible(true);
+				}
 			}
 		});
 		menuItem.setFont(new Font("Segoe UI", Font.PLAIN, 20));
@@ -232,19 +247,13 @@ public class MenuAdmin extends JFrame {
 		mntmListarEnfermedades.setFont(new Font("Segoe UI", Font.PLAIN, 20));
 		mnEnfermedades.add(mntmListarEnfermedades);
 		
-		JLabel label = new JLabel("CL\u00CDNICA PRIVADA ALONSO");
-		label.setForeground(new Color(47, 79, 79));
-		label.setFont(new Font("Verdana", Font.BOLD, 25));
-		label.setBounds(765, 67, 407, 48);
-		contentPane.add(label);
-		
 
         ImageIcon originalIcon = new ImageIcon(PantallaInicio.class.getResource("/visual/logoClinica.png"));
         Image scaledImage = originalIcon.getImage().getScaledInstance(70, 70, Image.SCALE_SMOOTH);
         ImageIcon scaledIcon = new ImageIcon(scaledImage);
         JLabel lblImagen = new JLabel(scaledIcon);
-		lblImagen.setBounds(1156, 47, 79, 83);
-		contentPane.add(lblImagen);
+		lblImagen.setBounds(1366, 50, 79, 83);
+		//contentPane.add(lblImagen);
 		
 		JPanel panel = new JPanel();
 		panel.setBackground(new Color(47, 79, 79));
@@ -265,6 +274,8 @@ public class MenuAdmin extends JFrame {
 		btnNewButton.setBounds(15, 31, 282, 29);
 		panel.add(btnNewButton);
 		
+		menuBar.add(lblClinica);
+		menuBar.add(lblImagen);
 
 	}
 }
