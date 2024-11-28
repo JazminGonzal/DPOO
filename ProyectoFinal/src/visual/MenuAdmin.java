@@ -68,7 +68,7 @@ public class MenuAdmin extends JFrame {
 		
 		JLabel lblClinica = new JLabel("          CL\u00CDNICA PRIVADA ALONSO   ");
 		lblClinica.setForeground(SystemColor.menu);
-		lblClinica.setFont(new Font("Verdana", Font.BOLD, 24));
+		lblClinica.setFont(new Font("Verdana", Font.BOLD, 22));
 		lblClinica.setBounds(969, 70, 407, 48);
 		//contentPane.add(lblClinica);
 		
@@ -82,7 +82,7 @@ public class MenuAdmin extends JFrame {
 		menu.setSize(new Dimension(0, 10));
 		menu.setMinimumSize(new Dimension(0, 10));
 		menu.setForeground(new Color(240, 248, 255));
-		menu.setFont(new Font("Segoe UI", Font.PLAIN, 25));
+		menu.setFont(new Font("Segoe UI", Font.PLAIN, 21));
 		menu.setBackground(new Color(47, 79, 79));
 		menuBar.add(menu);
 		
@@ -110,7 +110,7 @@ public class MenuAdmin extends JFrame {
 		
 		JMenu menu_1 = new JMenu("   Pacientes   ");
 		menu_1.setForeground(new Color(240, 248, 255));
-		menu_1.setFont(new Font("Segoe UI", Font.PLAIN, 25));
+		menu_1.setFont(new Font("Segoe UI", Font.PLAIN, 21));
 		menu_1.setBackground(new Color(47, 79, 79));
 		menuBar.add(menu_1);
 		
@@ -146,7 +146,7 @@ public class MenuAdmin extends JFrame {
 		
 		JMenu menu_2 = new JMenu("   M\u00E9dicos   ");
 		menu_2.setForeground(new Color(240, 248, 255));
-		menu_2.setFont(new Font("Segoe UI", Font.PLAIN, 25));
+		menu_2.setFont(new Font("Segoe UI", Font.PLAIN, 21));
 		menu_2.setBackground(new Color(47, 79, 79));
 		menuBar.add(menu_2);
 		
@@ -180,7 +180,7 @@ public class MenuAdmin extends JFrame {
 		
 		JMenu mnVacunas = new JMenu("   Vacunas   ");
 		mnVacunas.setForeground(new Color(240, 248, 255));
-		mnVacunas.setFont(new Font("Segoe UI", Font.PLAIN, 25));
+		mnVacunas.setFont(new Font("Segoe UI", Font.PLAIN, 21));
 		mnVacunas.setBackground(new Color(47, 79, 79));
 		menuBar.add(mnVacunas);
 		
@@ -214,7 +214,7 @@ public class MenuAdmin extends JFrame {
 		
 		JMenu mnEnfermedades = new JMenu("   Enfermedades   ");
 		mnEnfermedades.setForeground(new Color(240, 248, 255));
-		mnEnfermedades.setFont(new Font("Segoe UI", Font.PLAIN, 25));
+		mnEnfermedades.setFont(new Font("Segoe UI", Font.PLAIN, 21));
 		mnEnfermedades.setBackground(new Color(47, 79, 79));
 		menuBar.add(mnEnfermedades);
 		
