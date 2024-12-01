@@ -103,6 +103,16 @@ public class ClinicaMedica {
 	        return cantidad;
 	    }
 	  
+	  public double PromedioConsultasPorPaciente() {
+		    if (listaPacientes.isEmpty()) {
+		        return 0; 
+		    }
+		    int totalConsultas = listaConsultas.size();
+		    int totalPacientes = listaPacientes.size(); 
+
+		    return (double) totalConsultas / totalPacientes;
+		}
+	  
 	  
 	  public int getCantPacientesEnfermedadesBajoVigilancia() {
 		    int cantidad = 0;
