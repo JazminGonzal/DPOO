@@ -1,5 +1,8 @@
 package logico;
 
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.ZoneId;
 import java.util.Date;
 
 public abstract class Persona {
@@ -52,5 +55,14 @@ public abstract class Persona {
 	public void setfechaNacimiento(Date fechaNacimiento) {
 		this.fechaNacimiento = fechaNacimiento;
 	}
+	
+	
+	public int calcularEdad() {
+        LocalDate birthDate = fechaNacimiento.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        LocalDate today = LocalDate.now();
+        Period edad = Period.between(birthDate, today);
+        return edad.getYears();
+	}
+    
 
 }

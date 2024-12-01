@@ -48,8 +48,102 @@ public class ClinicaMedica {
 	}
 	
 
+	public int getTotalPacientes() {
+		return listaPacientes.size();
+	}
 	
 	
+	
+	
+	public int getCantPacientesMenoresDe18() {
+        int i = 0;
+        for (Paciente paciente : listaPacientes) {
+            if (paciente.calcularEdad() >= 0 && paciente.calcularEdad() <= 17) {
+                i++;
+            }
+        }
+        return i;
+    }
+	
+	public int getCantPacientesAdultos() {
+        int i = 0;
+        for (Paciente paciente : listaPacientes) {
+            if (paciente.calcularEdad() >= 18 && paciente.calcularEdad() <= 50) {
+                i++;
+            }
+        }
+        return i;
+    }
+	
+	
+	public int getCantPacientesMayores() {
+        int i = 0;
+        for (Paciente paciente : listaPacientes) {
+            if (paciente.calcularEdad() >= 51) {
+                i++;
+            }
+        }
+        return i;
+    }
+	
+	  public int getCantPacientesCitasPendientes() {
+	        int cantidad = 0;
+	        
+	        ArrayList<Paciente> pacientesContados = new ArrayList<>();
+	        for (Cita cita : listaCita) {
+	            if (!cita.isRealizada()) {
+	                Paciente paciente = cita.getPaciente();  
+	                
+	                if (!pacientesContados.contains(paciente)) {
+	                    pacientesContados.add(paciente); 
+	                    cantidad++;  
+	                }
+	            }
+	        }
+	        return cantidad;
+	    }
+	  
+	  
+	  public int getCantPacientesEnfermedadesBajoVigilancia() {
+		    int cantidad = 0;
+		    ArrayList<Paciente> pacientesContados = new ArrayList<>();
+
+		    for (Cita cita : listaCita) {
+		        Paciente paciente = cita.getPaciente();
+
+		        if (!pacientesContados.contains(paciente)) {
+		            for (Enfermedad enfermedad : paciente.getMisEnfermedades()) {
+		                if (enfermedad.isBajoVigilancia()) {
+		                    pacientesContados.add(paciente);
+		                    cantidad++;
+		                    break;
+		                }
+		            }
+		        }
+		    }
+		    return cantidad;
+		}
+	  
+	  
+	  public Paciente getPacienteConMasConsultas() {
+		    Paciente pacienteMasConsultas = null;
+		    int maxConsultas = 0;
+
+		    for (Paciente paciente : listaPacientes) {
+		        int i = 0;
+
+		        for (Consulta consulta : listaConsultas) {
+		            if (consulta.getPaciente().equals(paciente)) {
+		                i++;
+		            }
+		        }
+		        if (i > maxConsultas) {
+		            maxConsultas = i;
+		            pacienteMasConsultas = paciente;
+		        }
+		    }
+		    return pacienteMasConsultas;
+		}
 	
 	
 	

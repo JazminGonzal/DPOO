@@ -66,7 +66,7 @@ public class MenuAdmin extends JFrame {
 		setSize(dim.width, dim.height - 10);
 		setLocationRelativeTo(null);
 		
-		JLabel lblClinica = new JLabel("          CL\u00CDNICA PRIVADA ALONSO   ");
+		JLabel lblClinica = new JLabel("              CL\u00CDNICA PRIVADA ALONSO ");
 		lblClinica.setForeground(SystemColor.menu);
 		lblClinica.setFont(new Font("Verdana", Font.BOLD, 22));
 		lblClinica.setBounds(969, 70, 407, 48);
@@ -273,6 +273,40 @@ public class MenuAdmin extends JFrame {
 		});
 		btnNewButton.setBounds(15, 31, 282, 29);
 		panel.add(btnNewButton);
+		
+		JMenu mnNewMenu = new JMenu("Reportes");
+		mnNewMenu.setFont(new Font("Segoe UI", Font.PLAIN, 21));
+		mnNewMenu.setForeground(new Color(240, 248, 255));
+		menuBar.add(mnNewMenu);
+		
+		JMenuItem mntmNewMenuItem = new JMenuItem("Pacientes");
+		mntmNewMenuItem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				if(ClinicaMedica.getInstance().getListaPacientes().isEmpty()) {
+					JOptionPane.showMessageDialog(null, "No hay pacientes registrados. Por favor, registre una primero.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+				}
+				else {
+				ReportePacientes reportPaciente = new ReportePacientes();
+				reportPaciente.setVisible(true);
+				}
+				
+			}
+		});
+		mntmNewMenuItem.setFont(new Font("Segoe UI", Font.PLAIN, 20));
+		mnNewMenu.add(mntmNewMenuItem);
+		
+		JMenuItem mntmNewMenuItem_1 = new JMenuItem("Medicos");
+		mntmNewMenuItem_1.setFont(new Font("Segoe UI", Font.PLAIN, 20));
+		mnNewMenu.add(mntmNewMenuItem_1);
+		
+		JMenuItem mntmNewMenuItem_2 = new JMenuItem("Vacunas");
+		mntmNewMenuItem_2.setFont(new Font("Segoe UI", Font.PLAIN, 20));
+		mnNewMenu.add(mntmNewMenuItem_2);
+		
+		JMenuItem mntmNewMenuItem_3 = new JMenuItem("Enfermedades");
+		mntmNewMenuItem_3.setFont(new Font("Segoe UI", Font.PLAIN, 20));
+		mnNewMenu.add(mntmNewMenuItem_3);
 		
 		menuBar.add(lblClinica);
 		menuBar.add(lblImagen);
