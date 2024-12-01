@@ -439,7 +439,17 @@ public class ClinicaMedica {
 	}
 
 	
-	
+    public ArrayList<Consulta> buscarConsultasByPaciente(Paciente paciente) {
+        ArrayList<Consulta> consultasPaciente = new ArrayList<>();
+        
+        for (Consulta consulta : listaConsultas) {
+            if (consulta.getPaciente() != null && consulta.getPaciente().equals(paciente)) {
+                consultasPaciente.add(consulta);
+            }
+        }
+        
+        return consultasPaciente;
+    }
 	
 	
 	
@@ -508,6 +518,11 @@ public class ClinicaMedica {
 	public void setListaCita(ArrayList<Cita> listaCita) {
 		this.listaCita = listaCita;
 	}
+
+
+
+
+
 
 
 

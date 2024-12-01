@@ -16,7 +16,7 @@ public class Consulta {
 	
 	
 	public Consulta(String idConsulta, Paciente paciente, Medico doctor, Date fechaConsulta, String motivo,
-			String enfermededades, boolean esImportante, boolean esEnfermo) {
+			ArrayList<Enfermedad> enfermedadesSeleccionadas, boolean esImportante, boolean esEnfermo) {
 		super();
 		this.idConsulta = idConsulta;
 		this.paciente = paciente;

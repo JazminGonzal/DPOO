@@ -255,7 +255,7 @@ public class RegistrarConsulta extends JDialog {
         
         
         
-        if (citaSelected != null) {
+        
             Paciente paciente = citaSelected.getPaciente();
             Medico medico = citaSelected.getMedico();
             Date fechaCita = citaSelected.getFechaCita();
@@ -272,7 +272,7 @@ public class RegistrarConsulta extends JDialog {
 
             txtDireccion.setText(paciente.getDireccion());
 
-        }
+        
         
 
 
@@ -305,81 +305,84 @@ public class RegistrarConsulta extends JDialog {
 
 		okButton.addActionListener(new ActionListener() {
 		    public void actionPerformed(ActionEvent e) {
-		    	
-		    	try {
-		    		boolean esImportante = rdbtnImportante.isSelected();
-			        boolean esEnfermo = rdbtnEnfermo.isSelected();
+		        try {
+		            boolean esImportante = rdbtnImportante.isSelected();
+		            boolean esEnfermo = rdbtnEnfermo.isSelected();
 
-			
-			        ArrayList<Vacuna> vacunasSeleccionadas = paciente.getMisVacunas();
-			        ArrayList<Enfermedad> enfermedadesIniciales = new ArrayList<>(paciente.getMisEnfermedades());
-			        ArrayList<Enfermedad> enfermedadesFinales = paciente.getMisEnfermedades();
+		            // Actualizar las enfermedades del paciente
+		            ArrayList<Enfermedad> enfermedadesSeleccionadas = new ArrayList<>();
+		            for (int i = 0; i < modelEnfermedadesPaciente.getRowCount(); i++) {
+		                String idEnfermedad = (String) modelEnfermedadesPaciente.getValueAt(i, 0);
+		                Enfermedad enfermedad = ClinicaMedica.getInstance().buscarEnfermedadByCod(idEnfermedad);
+		                if (enfermedad != null) {
+		                    enfermedadesSeleccionadas.add(enfermedad);
+		                }
+		            }
+		            paciente.setMisEnfermedades(enfermedadesSeleccionadas);
 
-			        ArrayList<Enfermedad> nuevasEnfermedades = new ArrayList<>();
-			        for (Enfermedad enfermedad : enfermedadesFinales) {
-			            if (!enfermedadesIniciales.contains(enfermedad)) {
-			                nuevasEnfermedades.add(enfermedad);
-			            }
-			        }
+		            // Actualizar las vacunas del paciente
+		            ArrayList<Vacuna> vacunasSeleccionadas = new ArrayList<>();
+		            for (int i = 0; i < modelVacunasPaciente.getRowCount(); i++) {
+		                String idVacuna = (String) modelVacunasPaciente.getValueAt(i, 0);
+		                Vacuna vacuna = ClinicaMedica.getInstance().buscarVacunaByCod(idVacuna);
+		                if (vacuna != null) {
+		                    vacunasSeleccionadas.add(vacuna);
+		                }
+		            }
+		            paciente.setMisVacunas(vacunasSeleccionadas);
 
-			        String enfermedadesNuevas = "";
-			        for (Enfermedad nueva : nuevasEnfermedades) {
-			            enfermedadesNuevas += nueva.getNombre() + ", ";
-			        }
+		            // Crear la consulta
+		            Consulta nuevaConsulta = new Consulta(
+		                txtCodConsulta.getText(), 
+		                paciente, 
+		                medico, 
+		                fechaCita, 
+		                txtMotivo.getText(), 
+		                enfermedadesSeleccionadas, 
+		                esImportante, 
+		                esEnfermo
+		            );
 
-			        if (!enfermedadesNuevas.isEmpty()) {
-			            enfermedadesNuevas = enfermedadesNuevas.substring(0, enfermedadesNuevas.length() - 2);
-			        }
+		            // Registrar consulta y actualizar historial si es importante
+		            if (esImportante) {
+		                ArrayList<Diagnostico> nuevosDiagnosticos = new ArrayList<>();
+		                for (Enfermedad enfermedad : enfermedadesSeleccionadas) {
+		                    Diagnostico diagnostico = new Diagnostico(
+		                        "Diag-" + ClinicaMedica.codDiagnostico,
+		                        paciente,
+		                        enfermedad,
+		                        esEnfermo
+		                    );
+		                    nuevosDiagnosticos.add(diagnostico);
+		                }
 
-			        Consulta nuevaConsulta = new Consulta(txtCodConsulta.getText(),paciente,medico,
-			            fechaCita,txtMotivo.getText(),enfermedadesNuevas, esImportante, esEnfermo
-			        );
+		                HistoriaClinica historial = ClinicaMedica.getInstance().buscarHistorialByPaciente(paciente);
+		                if (historial == null) {
+		                    historial = new HistoriaClinica(
+		                        "Hist-" + ClinicaMedica.codHistorial,
+		                        paciente,
+		                        vacunasSeleccionadas,
+		                        nuevosDiagnosticos
+		                    );
+		                    ClinicaMedica.getInstance().insertarHistorial(historial);
+		                } else {
+		                    historial.getMisVacunas().clear();
+		                    historial.getMisVacunas().addAll(vacunasSeleccionadas);
+		                    historial.getMisDiagnosticos().addAll(nuevosDiagnosticos);
+		                }
+		            }
 
-			        
-			        if (esImportante) {
-			            ArrayList<Diagnostico> nuevosDiagnosticos = new ArrayList<>();
-			            for (Enfermedad enfermedad : nuevasEnfermedades) {
-			                Diagnostico diagnostico = new Diagnostico(
-			                    "Diag-" + ClinicaMedica.codDiagnostico,
-			                    paciente,
-			                    enfermedad,
-			                    esEnfermo
-			                );
-			                nuevosDiagnosticos.add(diagnostico);
-			            }
+		            ClinicaMedica.getInstance().eliminarCita(citaSelected.getIdCita());
+		            ClinicaMedica.getInstance().insertarConsulta(nuevaConsulta);
 
-			            HistoriaClinica historial = ClinicaMedica.getInstance().buscarHistorialByPaciente(paciente);
-
-			            if (historial == null) {
-			                historial = new HistoriaClinica(
-			                    "Hist-" + ClinicaMedica.codHistorial,
-			                    paciente,
-			                    vacunasSeleccionadas,
-			                    nuevosDiagnosticos
-			                );
-			                ClinicaMedica.getInstance().insertarHistorial(historial);
-			            } else {
-			                historial.getMisVacunas().addAll(vacunasSeleccionadas);
-			                historial.getMisDiagnosticos().addAll(nuevosDiagnosticos);
-			            }
-			            
-			            
-			        }
-
-			        ClinicaMedica.getInstance().eliminarCita(citaSelected.getIdCita());
-			        
-			        // Registrar la consulta
-			        ClinicaMedica.getInstance().insertarConsulta(nuevaConsulta);
-
-			        JOptionPane.showMessageDialog(contentPanel, "Consulta registrada exitosamente.");
-			        dispose();
-		    	} catch (Exception ex) {
-		    	    JOptionPane.showMessageDialog(contentPanel, "Ocurrió un error: " + ex.getMessage());
-		    	}
-
-		        
+		            JOptionPane.showMessageDialog(contentPanel, "Consulta registrada exitosamente.");
+		            dispose();
+		        } catch (Exception ex) {
+		            JOptionPane.showMessageDialog(contentPanel, "Ocurrió un error: " + ex.getMessage());
+		        }
 		    }
 		});
+
 
 
 
@@ -393,8 +396,28 @@ public class RegistrarConsulta extends JDialog {
 
 		
         loadEnfermedadesDisponibles();
+       // loadEnfermedadesPaciente();
         loadVacunasDisponibles();
+       // loadVacunasPaciente();
     }
+    
+    
+    private void loadEnfermedadesPaciente() {
+        ArrayList<Enfermedad> enfermedadesPaciente = paciente.getMisEnfermedades();
+        modelEnfermedadesPaciente.setRowCount(0); // Limpiar la tabla
+        for (Enfermedad enfermedad : enfermedadesPaciente) {
+            modelEnfermedadesPaciente.addRow(new Object[]{enfermedad.getIdEnfermedad(), enfermedad.getNombre()});
+        }
+    }
+
+    private void loadVacunasPaciente() {
+        ArrayList<Vacuna> vacunasPaciente = paciente.getMisVacunas();
+        modelVacunasPaciente.setRowCount(0); // Limpiar la tabla
+        for (Vacuna vacuna : vacunasPaciente) {
+            modelVacunasPaciente.addRow(new Object[]{vacuna.getCodigoVacuna(), vacuna.getNombre()});
+        }
+    }
+
 
     private void loadEnfermedadesDisponibles() {
         ArrayList<Enfermedad> enfermedades = ClinicaMedica.getInstance().getListaEnfermedad();

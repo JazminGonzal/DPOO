@@ -213,32 +213,49 @@ public class RegistrarCita extends JDialog {
 
 		JButton okButton = new JButton("Registrar");
 		okButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+		    public void actionPerformed(ActionEvent e) {
+		        String cedula = txtCedula.getText().trim();
+		        Paciente pacienteExistente = ClinicaMedica.getInstance().buscarPacienteByCedula(cedula);
 
-				Paciente paciente = new Paciente(txtCedula.getText(), txtNombre.getText(), txtTelefono.getText(),
-						txtDireccion.getText(), (Date) spnNacimiento_1.getValue(), txtIdPaciente.getText());
+		        Paciente paciente;
+		        if (pacienteExistente == null) {
+		            // Si el paciente no existe, se crea uno nuevo
+		            paciente = new Paciente(
+		                cedula,
+		                txtNombre.getText(),
+		                txtTelefono.getText(),
+		                txtDireccion.getText(),
+		                (Date) spnNacimiento_1.getValue(),
+		                txtIdPaciente.getText()
+		            );
 
-				ClinicaMedica.getInstance().insertarPaciente(paciente);
+		            ClinicaMedica.getInstance().insertarPaciente(paciente);
+		        } else {
+		            // Si el paciente ya existe, se utiliza el existente
+		            paciente = pacienteExistente;
+		            JOptionPane.showMessageDialog(null, "Paciente ya registrado. Usando información existente.", "Información", JOptionPane.INFORMATION_MESSAGE);
+		        }
 
-				Medico medico = obtenerMedicoSeleccionado();
+		        // Continuar con el registro de la cita
+		        Medico medico = obtenerMedicoSeleccionado();
 
-				if (medico != null) {
+		        if (medico != null) {
+		            Date fechaCita = (Date) spnFechaCita_1.getValue();
+		            String motivo = txtMotivo.getText();
+		            String idCita = txtIdCita.getText();
 
-					Date fechaCita = (Date) spnFechaCita_1.getValue();
-					String motivo = txtMotivo.getText();
-					String idCita = txtIdCita.getText();
-					Cita cita = new Cita(idCita, paciente, medico, fechaCita, motivo);
-					ClinicaMedica.getInstance().insertarCita(cita);
-					JOptionPane.showMessageDialog(null, "Cita registrada exitosamente.", "Éxito",
-							JOptionPane.INFORMATION_MESSAGE);
-				} else {
-					JOptionPane.showMessageDialog(null, "Debe seleccionar un médico", "Error",
-							JOptionPane.ERROR_MESSAGE);
-				}
+		            Cita cita = new Cita(idCita, paciente, medico, fechaCita, motivo);
+		            ClinicaMedica.getInstance().insertarCita(cita);
 
-				clean();
-			}
+		            JOptionPane.showMessageDialog(null, "Cita registrada exitosamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+		        } else {
+		            JOptionPane.showMessageDialog(null, "Debe seleccionar un médico", "Error", JOptionPane.ERROR_MESSAGE);
+		        }
+
+		        clean();
+		    }
 		});
+
 		okButton.setActionCommand("OK");
 		buttonPane.add(okButton);
 		getRootPane().setDefaultButton(okButton);
