@@ -1,6 +1,15 @@
 package logico;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import java.util.List;
+
+
 
 public class ClinicaMedica {
 
@@ -44,7 +53,7 @@ public class ClinicaMedica {
 		this.listaVacunas = new ArrayList<>();
 		this.listaDiagnostico = new ArrayList<>();
 		this.listaCita = new ArrayList<>();
-		this.misUsuarios = new ArrayList<>();
+		this.setMisUsuarios(new ArrayList<>());
 	}
 	
 
@@ -467,6 +476,31 @@ public class ClinicaMedica {
 		
 	}
 	
+    public void insertarUsuario(Usuario usuario) {
+        misUsuarios.add(usuario); // Inserción sin restricciones
+        guardarUsuarios();
+    }
+
+
+
+    private void cargarUsuarios() {
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream("usuarios.dat"))) {
+            misUsuarios = (ArrayList<Usuario>) ois.readObject();
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void guardarUsuarios() {
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("usuarios.dat"))) {
+            oos.writeObject(misUsuarios);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    
+	
 	
 	public void eliminarMedico(Medico aux) {
 		listaMedicos.remove(aux);	
@@ -708,6 +742,18 @@ public class ClinicaMedica {
 
 	public void setListaCita(ArrayList<Cita> listaCita) {
 		this.listaCita = listaCita;
+	}
+
+
+
+	public ArrayList<Usuario> getMisUsuarios() {
+		return misUsuarios;
+	}
+
+
+
+	public void setMisUsuarios(ArrayList<Usuario> misUsuarios) {
+		this.misUsuarios = misUsuarios;
 	}
 
 

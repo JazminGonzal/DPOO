@@ -1,6 +1,7 @@
 package visual;
 
 import java.awt.Color;
+
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Image;
@@ -10,6 +11,7 @@ import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.border.EmptyBorder;
@@ -19,6 +21,11 @@ import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Scanner;
 import java.awt.event.ActionEvent;
 
 public class PantallaInicio extends JFrame {
@@ -27,6 +34,7 @@ public class PantallaInicio extends JFrame {
     private Dimension dim;
     private JTextField textField;
 	private JPasswordField passwordField;
+    private static final String FILE_NAME = "usuarios.txt";
 	
     /**
      * Launch the application.
@@ -132,7 +140,71 @@ public class PantallaInicio extends JFrame {
 						contentPane.add(lblNewLabel_2);
 						
 						JButton btnNewButton = new JButton("Ingresar");
+						btnNewButton.addActionListener(new ActionListener() {
+							public void actionPerformed(ActionEvent e) {
+								validarCredenciales();
+							}
+						});
 						btnNewButton.setBounds(930, 558, 115, 29);
 						contentPane.add(btnNewButton);
+						
+						
+						verificarArchivoYUsuario();
+    }
+    
+    
+    
+    private void verificarArchivoYUsuario() {
+        try {
+            File archivo = new File(FILE_NAME);
+            if (!archivo.exists()) {
+                archivo.createNewFile();
+                try (FileWriter writer = new FileWriter(archivo, true)) {
+                    writer.write("admin,password,admin\n"); // Usuario predeterminado
+                }
+            }
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(this, "Error al crear el archivo: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    private void validarCredenciales() {
+        String usuario = textField.getText();
+        String contrasena = new String(passwordField.getPassword());
+        boolean credencialesValidas = false;
+        String rol = "";
+
+        try (Scanner scanner = new Scanner(new File(FILE_NAME))) {
+            while (scanner.hasNextLine()) {
+                String linea = scanner.nextLine();
+                String[] datos = linea.split(",");
+                if (datos.length == 3 && datos[0].equals(usuario) && datos[1].equals(contrasena)) {
+                    credencialesValidas = true;
+                    rol = datos[2];
+                    break;
+                }
+            }
+        } catch (FileNotFoundException e) {
+            JOptionPane.showMessageDialog(this, "Archivo no encontrado: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+
+        if (credencialesValidas) {
+            if ("admin".equals(rol)) {
+                JOptionPane.showMessageDialog(this, "Bienvenido, Administrador");
+                new MenuAdmin().setVisible(true);
+                dispose();
+            } else if("regular".equals(rol)) {
+                JOptionPane.showMessageDialog(this, "Bienvenido, Trabajador Regular");
+                new MenuRegular().setVisible(true);
+                dispose();
+            }
+        	 else if("medico".equals(rol)) {
+            JOptionPane.showMessageDialog(this, "Bienvenido, Doctor");
+            new ConsultasPorMedico(textField.getText()).setVisible(true);
+            dispose();
+        }
+        } else {
+            JOptionPane.showMessageDialog(this, "Credenciales incorrectas", "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }
 }
