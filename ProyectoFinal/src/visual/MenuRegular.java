@@ -31,6 +31,7 @@ public class MenuRegular extends JFrame {
 
 	private JPanel contentPane;
 	private Dimension dim;
+	private JLabel lblClinico;
 
 	/**
 	 * Launch the application.
@@ -62,16 +63,16 @@ public class MenuRegular extends JFrame {
 		setContentPane(contentPane);
 		
 		ImageIcon originalIcon = new ImageIcon(PantallaInicio.class.getResource("/visual/logoClinica.png"));
-		Image scaledImage = originalIcon.getImage().getScaledInstance(70, 70, Image.SCALE_SMOOTH);
+		Image scaledImage = originalIcon.getImage().getScaledInstance(60, 60, Image.SCALE_SMOOTH);
 		ImageIcon scaledIcon = new ImageIcon(scaledImage);
 		contentPane.setLayout(null);
 		JLabel lblImagen = new JLabel(scaledIcon);
-		lblImagen.setBounds(dim.width-100, 16, 85, 70);
-		contentPane.add(lblImagen);
+		lblImagen.setBounds(714, 540, 85, 70);
+		//contentPane.add(lblImagen);
 		
 		JMenuBar menuBar = new JMenuBar();
 		menuBar.setMaximumSize(new Dimension(0, 10));
-		menuBar.setBounds(0, 0, 1898, 40);
+		menuBar.setBounds(0, 0, 1898, 85);
 		contentPane.add(menuBar);
 		menuBar.setBackground(new Color(47, 79, 79));
 		
@@ -160,11 +161,14 @@ public class MenuRegular extends JFrame {
 		button.setBounds(15, 31, 282, 29);
 		panel.add(button);
 		
-		JLabel label = new JLabel("CL\u00CDNICA PRIVADA ALONSO");
-		label.setForeground(new Color(47, 79, 79));
-		label.setFont(new Font("Verdana", Font.BOLD, 25));
-		label.setBounds(758, 56, 407, 48);
-		contentPane.add(label);
+		lblClinico = new JLabel("                   CL\u00CDNICA PRIVADA ALONSO   ");
+		lblClinico.setForeground(Color.WHITE);
+		lblClinico.setFont(new Font("Verdana", Font.BOLD, 22));
+		lblClinico.setBounds(726, 260, 460, 48);
+		//contentPane.add(label);
+		
+		menuBar.add(lblClinico);
+		menuBar.add(lblImagen);
 	}
 
 }
