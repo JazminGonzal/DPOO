@@ -57,7 +57,9 @@ public class ClinicaMedica {
 		return listaMedicos.size();
 	}
 	
-	
+	public int getTotalEnfermedades() {
+		return listaEnfermedad.size();
+	}
 	
 	public int getCantPacientesMenoresDe18() {
         int i = 0;
@@ -91,7 +93,7 @@ public class ClinicaMedica {
     }
 	
 	  public int getCantPacientesCitasPendientes() {
-	        int cantidad = 0;
+	        int i = 0;
 	        
 	        ArrayList<Paciente> pacientesContados = new ArrayList<>();
 	        for (Cita cita : listaCita) {
@@ -100,16 +102,16 @@ public class ClinicaMedica {
 	                
 	                if (!pacientesContados.contains(paciente)) {
 	                    pacientesContados.add(paciente); 
-	                    cantidad++;  
+	                    i++;  
 	                }
 	            }
 	        }
-	        return cantidad;
+	        return i;
 	    }
 	  
 	  
 	  public int getCantMedicosCitasPendientes() {
-	        int cantidad = 0;
+	        int i = 0;
 	        
 	        ArrayList<Medico> medicosContados = new ArrayList<>();
 	        for (Cita cita : listaCita) {
@@ -118,11 +120,11 @@ public class ClinicaMedica {
 	                
 	                if (!medicosContados.contains(medicos)) {
 	                    medicosContados.add(medicos); 
-	                    cantidad++;  
+	                    i++;  
 	                }
 	            }
 	        }
-	        return cantidad;
+	        return i;
 	    }
 	  
 	  
@@ -150,7 +152,7 @@ public class ClinicaMedica {
 	  
 	  
 	  public int getCantPacientesEnfermedadesBajoVigilancia() {
-		    int cantidad = 0;
+		    int i = 0;
 		    ArrayList<Paciente> pacientesContados = new ArrayList<>();
 
 		    for (Cita cita : listaCita) {
@@ -160,13 +162,13 @@ public class ClinicaMedica {
 		            for (Enfermedad enfermedad : paciente.getMisEnfermedades()) {
 		                if (enfermedad.isBajoVigilancia()) {
 		                    pacientesContados.add(paciente);
-		                    cantidad++;
+		                    i++;
 		                    break;
 		                }
 		            }
 		        }
 		    }
-		    return cantidad;
+		    return i;
 		}
 	  
 	  
@@ -210,6 +212,54 @@ public class ClinicaMedica {
 		        }
 		    }
 		    return medicoMasConsultas;
+		}
+	  
+	  
+	  
+	  public Enfermedad getEnfermedadMasComun() {
+		    Enfermedad enfermedadMasComun = null;
+		    int maxPacientes = 0;
+
+		    for (Paciente paciente : listaPacientes) {
+		        for (Enfermedad enfermedad : paciente.getMisEnfermedades()) {
+		            int cantPacientes = contarPacientesConEnfermedad(enfermedad);
+
+		            if (cantPacientes > maxPacientes) {
+		                maxPacientes = cantPacientes;
+		                enfermedadMasComun = enfermedad;
+		            }
+		        }
+		    }
+
+		    return enfermedadMasComun;
+		}
+	  
+	  
+	  private int contarPacientesConEnfermedad(Enfermedad enfermedadBuscada) {
+		    int i = 0;
+
+		    for (Paciente paciente : listaPacientes) {
+		        for (Enfermedad enfermedad : paciente.getMisEnfermedades()) {
+		            if (enfermedad.equals(enfermedadBuscada)) {
+		                i++;
+		                break; 
+		            }
+		        }
+		    }
+		    return i;
+		}
+	  
+	  
+	  public int getCantPacientesConVariasEnfermedad() {
+		    int i = 0;
+
+		    for (Paciente paciente : listaPacientes) {
+		        if (paciente.getMisEnfermedades().size() > 1) {
+		            i++;
+		        }
+		    }
+
+		    return i;
 		}
 	
 	
