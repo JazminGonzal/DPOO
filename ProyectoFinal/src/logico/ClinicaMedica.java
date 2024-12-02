@@ -53,6 +53,10 @@ public class ClinicaMedica {
 	}
 	
 	
+	public int getTotalMedicos() {
+		return listaMedicos.size();
+	}
+	
 	
 	
 	public int getCantPacientesMenoresDe18() {
@@ -103,9 +107,40 @@ public class ClinicaMedica {
 	        return cantidad;
 	    }
 	  
+	  
+	  public int getCantMedicosCitasPendientes() {
+	        int cantidad = 0;
+	        
+	        ArrayList<Medico> medicosContados = new ArrayList<>();
+	        for (Cita cita : listaCita) {
+	            if (!cita.isRealizada()) {
+	                Medico medicos = cita.getMedico();  
+	                
+	                if (!medicosContados.contains(medicos)) {
+	                    medicosContados.add(medicos); 
+	                    cantidad++;  
+	                }
+	            }
+	        }
+	        return cantidad;
+	    }
+	  
+	  
+	  public double PromedioConsultasPorMedico() {
+		    if (listaMedicos.isEmpty()) {
+		        return 0.0; 
+		    }
+		    int totalConsultas = listaConsultas.size();
+		    int totalMedicos = listaPacientes.size(); 
+
+		    return (double) totalConsultas / totalMedicos;
+		}
+	  
+	  
+	  
 	  public double PromedioConsultasPorPaciente() {
 		    if (listaPacientes.isEmpty()) {
-		        return 0; 
+		        return 0.0; 
 		    }
 		    int totalConsultas = listaConsultas.size();
 		    int totalPacientes = listaPacientes.size(); 
@@ -153,6 +188,28 @@ public class ClinicaMedica {
 		        }
 		    }
 		    return pacienteMasConsultas;
+		}
+	  
+	  
+	  
+	  public Medico getMedicoConMasConsultas() {
+		    Medico medicoMasConsultas = null;
+		    int maxConsultas = 0;
+
+		    for (Medico medico : listaMedicos) {
+		        int i = 0;
+
+		        for (Consulta consulta : listaConsultas) {
+		            if (consulta.getDoctor().equals(medico)) {
+		                i++;
+		            }
+		        }
+		        if (i > maxConsultas) {
+		            maxConsultas = i;
+		            medicoMasConsultas = medico;
+		        }
+		    }
+		    return medicoMasConsultas;
 		}
 	
 	

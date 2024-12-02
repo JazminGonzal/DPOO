@@ -297,12 +297,20 @@ public class MenuAdmin extends JFrame {
 		mnNewMenu.add(mntmNewMenuItem);
 		
 		JMenuItem mntmNewMenuItem_1 = new JMenuItem("Medicos");
+		mntmNewMenuItem_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				if(ClinicaMedica.getInstance().getListaMedicos().isEmpty()) {
+					JOptionPane.showMessageDialog(null, "No hay medicos registrados. Por favor, registre una primero.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+				}
+				else {
+				ReporteMedicos reportMedico = new ReporteMedicos();
+				reportMedico.setVisible(true);
+				}
+			}
+		});
 		mntmNewMenuItem_1.setFont(new Font("Segoe UI", Font.PLAIN, 20));
 		mnNewMenu.add(mntmNewMenuItem_1);
-		
-		JMenuItem mntmNewMenuItem_2 = new JMenuItem("Vacunas");
-		mntmNewMenuItem_2.setFont(new Font("Segoe UI", Font.PLAIN, 20));
-		mnNewMenu.add(mntmNewMenuItem_2);
 		
 		JMenuItem mntmNewMenuItem_3 = new JMenuItem("Enfermedades");
 		mntmNewMenuItem_3.setFont(new Font("Segoe UI", Font.PLAIN, 20));
