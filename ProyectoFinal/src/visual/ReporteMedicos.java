@@ -82,29 +82,24 @@ public class ReporteMedicos extends JFrame {
 		lblNewLabel_3.setBounds(56, 350, 333, 20);
 		panel.add(lblNewLabel_3);
 		
-		JLabel lblNewLabel_4 = new JLabel("Doctor:");
+		JLabel lblNewLabel_4 = new JLabel("Interno:");
 		lblNewLabel_4.setFont(new Font("Tahoma", Font.BOLD, 18));
-		lblNewLabel_4.setBounds(56, 404, 89, 20);
+		lblNewLabel_4.setBounds(56, 405, 89, 20);
 		panel.add(lblNewLabel_4);
 		
-		JLabel lblNewLabel_5 = new JLabel("New label");
+		JLabel lblNewLabel_5 = new JLabel("Especialista:");
 		lblNewLabel_5.setFont(new Font("Tahoma", Font.BOLD, 18));
-		lblNewLabel_5.setBounds(56, 460, 89, 20);
+		lblNewLabel_5.setBounds(56, 468, 127, 20);
 		panel.add(lblNewLabel_5);
 		
-		JLabel lblNewLabel_6 = new JLabel("New label");
-		lblNewLabel_6.setFont(new Font("Tahoma", Font.BOLD, 18));
-		lblNewLabel_6.setBounds(375, 405, 106, 20);
-		panel.add(lblNewLabel_6);
-		
-		JLabel lblNewLabel_7 = new JLabel("New label");
+		JLabel lblNewLabel_7 = new JLabel("Residente:");
 		lblNewLabel_7.setFont(new Font("Tahoma", Font.BOLD, 18));
-		lblNewLabel_7.setBounds(375, 461, 106, 20);
+		lblNewLabel_7.setBounds(56, 530, 106, 20);
 		panel.add(lblNewLabel_7);
 		
 		JLabel lblNewLabel_8 = new JLabel("M\u00E9dicos con Citas Pendientes:");
 		lblNewLabel_8.setFont(new Font("Tahoma", Font.BOLD, 18));
-		lblNewLabel_8.setBounds(56, 527, 278, 20);
+		lblNewLabel_8.setBounds(56, 593, 278, 20);
 		panel.add(lblNewLabel_8);
 		
 		JLabel lblTotalMedicos = new JLabel("");
@@ -131,15 +126,35 @@ public class ReporteMedicos extends JFrame {
 		}
 		panel.add(lblMedicoMaxConsulta);
 		
-		JLabel lblDoctor = new JLabel("");
-		lblDoctor.setFont(new Font("Tahoma", Font.BOLD, 17));
-		lblDoctor.setBounds(136, 405, 143, 20);
-		panel.add(lblDoctor);
+		JLabel lblInterno = new JLabel("");
+		lblInterno.setFont(new Font("Tahoma", Font.BOLD, 17));
+		lblInterno.setBounds(145, 405, 143, 20);
+		lblInterno.setText(String.valueOf(ClinicaMedica.getInstance().contarInternos()));
+		panel.add(lblInterno);
 		
 		JLabel lblCitasPendientes = new JLabel("");
 		lblCitasPendientes.setFont(new Font("Tahoma", Font.BOLD, 17));
-		lblCitasPendientes.setBounds(349, 528, 121, 20);
+		lblCitasPendientes.setBounds(349, 593, 121, 20);
 		lblCitasPendientes.setText(String.valueOf(ClinicaMedica.getInstance().getCantMedicosCitasPendientes()));
 		panel.add(lblCitasPendientes);
+		
+		JLabel lblNewLabel_6 = new JLabel("");
+		lblNewLabel_6.setFont(new Font("Tahoma", Font.BOLD, 17));
+		lblNewLabel_6.setBounds(146, 406, 121, 20);
+		panel.add(lblNewLabel_6);
+		
+		JLabel lblEspecialista = new JLabel("");
+		lblEspecialista.setFont(new Font("Tahoma", Font.BOLD, 17));
+		lblEspecialista.setBounds(178, 468, 171, 20);
+		lblEspecialista.setText(String.valueOf(ClinicaMedica.getInstance().contarEspecialistas()));
+		panel.add(lblEspecialista);
+		
+		JLabel lblResidente = new JLabel("");
+		lblResidente.setFont(new Font("Tahoma", Font.BOLD, 17));
+		lblResidente.setBounds(166, 530, 135, 20);
+		lblResidente.setText(String.valueOf(ClinicaMedica.getInstance().contarResidentes()));
+		panel.add(lblResidente);
 	}
+	
+
 }

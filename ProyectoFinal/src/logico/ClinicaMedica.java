@@ -133,7 +133,7 @@ public class ClinicaMedica {
 		        return 0.0; 
 		    }
 		    int totalConsultas = listaConsultas.size();
-		    int totalMedicos = listaPacientes.size(); 
+		    int totalMedicos = listaMedicos.size(); 
 
 		    return (double) totalConsultas / totalMedicos;
 		}
@@ -215,6 +215,38 @@ public class ClinicaMedica {
 		}
 	  
 	  
+	  public int contarInternos() {
+		    int i = 0;
+		    for (Medico medico : listaMedicos) {
+		        if (medico.getPuesto().equals("Interno")) {
+		            i++;
+		        }
+		    }
+		    return i;
+		}
+	  
+	  
+	  public int contarEspecialistas() {
+		    int i = 0;
+		    for (Medico medico : listaMedicos) {
+		        if (medico.getPuesto().equals("Especialista")) {
+		            i++;
+		        }
+		    }
+		    return i;
+		}
+	  
+	  
+	  public int contarResidentes() {
+		    int i = 0;
+		    for (Medico medico : listaMedicos) {
+		        if (medico.getPuesto().equals("Residente")) {
+		            i++;
+		        }
+		    }
+		    return i;
+		}
+	  
 	  
 	  public Enfermedad getEnfermedadMasComun() {
 		    Enfermedad enfermedadMasComun = null;
@@ -232,6 +264,32 @@ public class ClinicaMedica {
 		    }
 
 		    return enfermedadMasComun;
+		}
+	  
+	  public int contarEnfermedadesBajoVigilancia() {
+		    int i = 0;
+		    for (Enfermedad enfermedad : listaEnfermedad) {
+		        if (enfermedad.isBajoVigilancia()) {
+		            i++;
+		        }
+		    }
+		    return i;
+		}
+	  
+	  
+	  public double porcentajePacienteConEnfermedad(Enfermedad enfermedadSeleccionada) {
+		    int pacientes = 0;
+		    int totalPacientes = listaPacientes.size();
+
+		    for (Paciente paciente : listaPacientes) {
+		        for (Enfermedad enfermedad : paciente.getMisEnfermedades()) {
+		            if (enfermedad.equals(enfermedadSeleccionada)) {
+		                pacientes++;
+		                break;
+		            }
+		        }
+		    }
+		    return (pacientes / (double) totalPacientes) * 100;
 		}
 	  
 	  

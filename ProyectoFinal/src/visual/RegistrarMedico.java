@@ -171,7 +171,7 @@ public class RegistrarMedico extends JDialog {
 			panel.add(lblNewLabel_8);
 			
 			cbPuesto = new JComboBox();
-			cbPuesto.setModel(new DefaultComboBoxModel(new String[] {"        <Seleccionar>", "Medico", "Doctor", "Especialista", "Enfermera"}));
+			cbPuesto.setModel(new DefaultComboBoxModel(new String[] {" <Seleccionar>", "Interno", "Especialista", "Residente"}));
 			cbPuesto.setBounds(603, 224, 208, 26);
 			panel.add(cbPuesto);
 			

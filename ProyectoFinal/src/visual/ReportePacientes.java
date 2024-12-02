@@ -15,6 +15,8 @@ import java.awt.Font;
 import java.awt.Color;
 import javax.swing.JSeparator;
 import java.awt.SystemColor;
+import javax.swing.JComboBox;
+import javax.swing.DefaultComboBoxModel;
 
 public class ReportePacientes extends JFrame {
 
@@ -42,7 +44,7 @@ public class ReportePacientes extends JFrame {
 	public ReportePacientes() {
 		setTitle("Reporte de Pacientes");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 807, 739);
+		setBounds(100, 100, 807, 721);
 		setLocationRelativeTo(null);
 		contentPane = new JPanel();
 		contentPane.setBackground(SystemColor.menu);

@@ -313,6 +313,18 @@ public class MenuAdmin extends JFrame {
 		mnNewMenu.add(mntmNewMenuItem_1);
 		
 		JMenuItem mntmNewMenuItem_3 = new JMenuItem("Enfermedades");
+		mntmNewMenuItem_3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				if(ClinicaMedica.getInstance().getListaEnfermedad().isEmpty()) {
+					JOptionPane.showMessageDialog(null, "No hay enfermedades registradas. Por favor, registre una primero.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+				}
+				else {
+				ReporteEnfermedad reportEnfermedad = new ReporteEnfermedad();
+				reportEnfermedad.setVisible(true);
+				}
+			}
+		});
 		mntmNewMenuItem_3.setFont(new Font("Segoe UI", Font.PLAIN, 20));
 		mnNewMenu.add(mntmNewMenuItem_3);
 		

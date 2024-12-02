@@ -15,10 +15,16 @@ import javax.swing.JLabel;
 import java.awt.Font;
 import java.awt.Color;
 import javax.swing.JSeparator;
+import javax.swing.JComboBox;
+import javax.swing.DefaultComboBoxModel;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class ReporteEnfermedad extends JFrame {
 
 	private JPanel contentPane;
+	private JComboBox cbEnfermedad;
+	private double porcentaje;
 
 	/**
 	 * Launch the application.
@@ -42,7 +48,7 @@ public class ReporteEnfermedad extends JFrame {
 	public ReporteEnfermedad() {
 		setTitle("Reporte de Enfermedades");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 781, 637);
+		setBounds(100, 100, 781, 729);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -77,15 +83,10 @@ public class ReporteEnfermedad extends JFrame {
 		lblNewLabel_2.setBounds(69, 321, 362, 20);
 		panel.add(lblNewLabel_2);
 		
-		JLabel lblNewLabel_3 = new JLabel("New label");
+		JLabel lblNewLabel_3 = new JLabel("Enfermedades Bajo Vigilancia:");
 		lblNewLabel_3.setFont(new Font("Tahoma", Font.BOLD, 18));
 		lblNewLabel_3.setBounds(70, 389, 285, 20);
 		panel.add(lblNewLabel_3);
-		
-		JLabel lblNewLabel_4 = new JLabel("New label");
-		lblNewLabel_4.setFont(new Font("Tahoma", Font.BOLD, 18));
-		lblNewLabel_4.setBounds(69, 460, 199, 20);
-		panel.add(lblNewLabel_4);
 		
 		JLabel lblTotalEnfermedad = new JLabel("");
 		lblTotalEnfermedad.setFont(new Font("Tahoma", Font.BOLD, 17));
@@ -112,6 +113,52 @@ public class ReporteEnfermedad extends JFrame {
 		lblPacientesVariasEnfermedad.setBounds(437, 322, 215, 20);
 		lblPacientesVariasEnfermedad.setText(String.valueOf(ClinicaMedica.getInstance().getCantPacientesConVariasEnfermedad()));
 		panel.add(lblPacientesVariasEnfermedad);
+		
+		JLabel lblBajoVigilancia = new JLabel("");
+		lblBajoVigilancia.setFont(new Font("Tahoma", Font.BOLD, 17));
+		lblBajoVigilancia.setBounds(359, 389, 162, 20);
+		lblBajoVigilancia.setText(String.valueOf(ClinicaMedica.getInstance().contarEnfermedadesBajoVigilancia()));
+		panel.add(lblBajoVigilancia);
+		
+		JLabel label = new JLabel("Porcentaje de Pacientes Afectados por una Enfermedad Especifica");
+		label.setFont(new Font("Tahoma", Font.BOLD, 18));
+		label.setBounds(69, 465, 616, 20);
+		panel.add(label);
+		cbEnfermedad = new JComboBox();
+		
+		cbEnfermedad.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				 int indice = cbEnfermedad.getSelectedIndex();
+			        if (indice >= 0) {
+			            Enfermedad enfermedadSeleccionada = ClinicaMedica.getInstance().getListaEnfermedad().get(indice); 
+			             porcentaje = ClinicaMedica.getInstance().porcentajePacienteConEnfermedad(enfermedadSeleccionada);
+			            
+			        }
+			}
+		});
+		cbEnfermedad.setModel(new DefaultComboBoxModel(new String[] {"<Seleccionar>"}));
+		cbEnfermedad.setBounds(69, 522, 207, 26);
+		llenarCbEnfermedad();
+		panel.add(cbEnfermedad);
+		
+		JLabel lblPorcentaje = new JLabel("");
+		lblPorcentaje.setFont(new Font("Tahoma", Font.BOLD, 17));
+		lblPorcentaje.setBounds(317, 525, 215, 20);
+		lblPorcentaje.setText("Porcentaje: "+String.valueOf(porcentaje)+"%");
+		panel.add(lblPorcentaje);
 	}
+	
+	
+	
+	
+	private void llenarCbEnfermedad() {
+	    for (Enfermedad enfermedad : ClinicaMedica.getInstance().getListaEnfermedad()) {
+	        cbEnfermedad.addItem(enfermedad.getNombre());
+	    }
+	}
+	
+	
+	
+	
 
 }
