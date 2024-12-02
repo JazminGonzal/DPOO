@@ -261,6 +261,22 @@ public class ClinicaMedica {
 
 		    return i;
 		}
+	  
+	  
+	  
+	  public boolean verificarCedulaUnica(String cedula) {
+		    for (Paciente paciente : listaPacientes) {
+		        if (paciente.getCedula().equals(cedula)) {
+		            return false;
+		        }
+		    }
+		    for (Medico medico : listaMedicos) {
+		        if (medico.getCedula().equals(cedula)) {
+		            return false; 
+		        }
+		    }
+		    return true;
+		}
 	
 	
 	

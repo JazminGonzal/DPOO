@@ -213,6 +213,11 @@ public class RegistrarMedico extends JDialog {
 							return;
 						}
 						
+						if(!ClinicaMedica.getInstance().verificarCedulaUnica(txtCedula.getText())){
+							JOptionPane.showMessageDialog(null, "La cédula ya está registrada. Ingrese una cédula única.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+						return;
+						}
+						
 						
 						if(updated == null) {
 						Medico medico = null;
