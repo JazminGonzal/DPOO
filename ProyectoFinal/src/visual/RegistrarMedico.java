@@ -6,10 +6,12 @@ import java.awt.FlowLayout;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.border.EmptyBorder;
 
 import logico.ClinicaMedica;
 import logico.Medico;
+import logico.Usuario;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -44,6 +46,8 @@ public class RegistrarMedico extends JDialog {
 	private JComboBox cbPuesto;
 	private JSpinner spnFechNac;
 	private Medico updated = null;
+	private JPasswordField txtPassword;
+	private JPasswordField txtConfirmPassword;
 
 	/**
 	 * Launch the application.
@@ -190,6 +194,24 @@ public class RegistrarMedico extends JDialog {
 			lblNewLabel_10.setBounds(524, 378, 69, 20);
 			panel.add(lblNewLabel_10);
 			
+			JLabel lblPassword = new JLabel("Password:");
+		    lblPassword.setFont(new Font("Tahoma", Font.BOLD, 18));
+		    lblPassword.setBounds(480, 431, 118, 20);
+		    panel.add(lblPassword);
+		    
+		    txtPassword = new JPasswordField();
+		    txtPassword.setBounds(603, 431, 208, 26);
+		    panel.add(txtPassword);
+		    
+		    JLabel lblConfirmPassword = new JLabel("Confirmar Password:");
+		    lblConfirmPassword.setFont(new Font("Tahoma", Font.BOLD, 18));
+		    lblConfirmPassword.setBounds(390, 500, 210, 20);
+		    panel.add(lblConfirmPassword);
+		    
+		    txtConfirmPassword = new JPasswordField();
+		    txtConfirmPassword.setBounds(603, 498, 208, 26);
+		    panel.add(txtConfirmPassword);
+			
 			spnSueldo = new JSpinner();
 			spnSueldo.setModel(new SpinnerNumberModel(new Float(0), new Float(0), null, new Float(1)));
 			spnSueldo.setBounds(603, 376, 203, 26);
@@ -208,27 +230,51 @@ public class RegistrarMedico extends JDialog {
 				btnRegistrar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						
-						if(camposVacios()) {
-							JOptionPane.showMessageDialog(null, "Debe completar todos los campos", "Advertencia", JOptionPane.WARNING_MESSAGE);
-							return;
-						}
-						
-						if(!ClinicaMedica.getInstance().verificarCedulaUnica(txtCedula.getText())){
-							JOptionPane.showMessageDialog(null, "La cédula ya está registrada. Ingrese una cédula única.", "Advertencia", JOptionPane.WARNING_MESSAGE);
-						return;
-						}
-						
-						
-						if(updated == null) {
-						Medico medico = null;
-						Date fecha = (Date) spnFechNac.getValue();
-						Float sueldo = new Float(spnSueldo.getValue().toString());
-						medico = new Medico(txtCedula.getText(), txtNombre.getText(), txtTelefono.getText(), txtDireccion.getText(), fecha,
-								txtCodMedico.getText(), cbPuesto.getSelectedItem().toString(), txtEspecialidad.getText(), sueldo );
-						
-						ClinicaMedica.getInstance().insertarMedico(medico);
-						JOptionPane.showMessageDialog(null,"Registro Satisfactorio","Información",JOptionPane.INFORMATION_MESSAGE);					
-						clean();
+				        if (camposVacios()) {
+				            JOptionPane.showMessageDialog(null, "Debe completar todos los campos", "Advertencia", JOptionPane.WARNING_MESSAGE);
+				            return;
+				        }
+
+				        String password = new String(txtPassword.getPassword());
+				        String confirmPassword = new String(txtConfirmPassword.getPassword());
+
+				        if (password.isEmpty() || confirmPassword.isEmpty()) {
+				            JOptionPane.showMessageDialog(null, "Debe ingresar y confirmar la contraseña", "Advertencia", JOptionPane.WARNING_MESSAGE);
+				            return;
+				        }
+
+				        if (!password.equals(confirmPassword)) {
+				            JOptionPane.showMessageDialog(null, "Las contraseñas no coinciden", "Error", JOptionPane.ERROR_MESSAGE);
+				            return;
+				        }
+
+				        if (!ClinicaMedica.getInstance().verificarCedulaUnica(txtCedula.getText())) {
+				            JOptionPane.showMessageDialog(null, "La cédula ya está registrada. Ingrese una cédula única.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+				            return;
+				        }
+
+				        if (updated == null) {
+				            Date fecha = (Date) spnFechNac.getValue();
+				            Float sueldo = new Float(spnSueldo.getValue().toString());
+				            String codigoMedico = txtCodMedico.getText();
+				            Medico medico = new Medico(txtCedula.getText(), txtNombre.getText(), txtTelefono.getText(), txtDireccion.getText(), fecha,
+				                    codigoMedico, cbPuesto.getSelectedItem().toString(), txtEspecialidad.getText(), sueldo);
+
+				            // Crear el usuario con el código del médico
+				            Usuario nuevoUsuario = new Usuario(codigoMedico, password, "médico");
+
+				            // Verificar si el usuario ya existe
+				            if (!ClinicaMedica.getInstance().verificarUsuarioUnico(codigoMedico)) {
+				                JOptionPane.showMessageDialog(null, "El código de usuario ya está registrado. Intente con otro.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+				                return;
+				            }
+
+				            // Guardar médico y usuario
+				            ClinicaMedica.getInstance().insertarMedico(medico);
+				            ClinicaMedica.getInstance().insertarUsuario(nuevoUsuario);
+
+				            JOptionPane.showMessageDialog(null, "Registro Satisfactorio", "Información", JOptionPane.INFORMATION_MESSAGE);
+				            clean();
 						}
 						else {
 							updated.setNombre(txtNombre.getText());

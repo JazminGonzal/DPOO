@@ -476,10 +476,19 @@ public class ClinicaMedica {
 		
 	}
 	
-    public void insertarUsuario(Usuario usuario) {
-        misUsuarios.add(usuario); // Inserción sin restricciones
-        guardarUsuarios();
-    }
+	
+	public void insertarUsuario(Usuario usuario) {
+	    boolean existe = misUsuarios.stream()
+	                                .anyMatch(u -> u.getUsuario().equals(usuario.getUsuario()));
+
+	    if (!existe) {
+	        misUsuarios.add(usuario);
+	        guardarUsuarios();
+	    } else {
+	        System.out.println("El usuario con el nombre '" + usuario.getUsuario() + "' ya existe.");
+	    }
+	}
+
 
 
 
@@ -498,6 +507,11 @@ public class ClinicaMedica {
             e.printStackTrace();
         }
     }
+    
+    public boolean verificarUsuarioUnico(String usuario) {
+        return misUsuarios.stream().noneMatch(u -> u.getUsuario().equals(usuario));
+    }
+
 
     
 	

@@ -34,7 +34,7 @@ public class PantallaInicio extends JFrame {
     private Dimension dim;
     private JTextField textField;
 	private JPasswordField passwordField;
-    private static final String FILE_NAME = "usuarios.txt";
+    private static final String FILE_NAME = "usuarios.dat";
 	
     /**
      * Launch the application.

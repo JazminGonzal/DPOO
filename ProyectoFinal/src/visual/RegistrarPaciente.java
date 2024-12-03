@@ -121,7 +121,7 @@ public class RegistrarPaciente extends JDialog {
 			{
 				txtCodigo = new JTextField();
 				txtCodigo.setEnabled(false);
-				txtCodigo.setText("P-"+ClinicaMedica.getInstance().codPaciente);
+				txtCodigo.setText("Pac-"+ClinicaMedica.getInstance().codPaciente);
 				txtCodigo.setBounds(150, 129, 211, 26);
 				panel.add(txtCodigo);
 				txtCodigo.setColumns(10);
@@ -256,7 +256,7 @@ public class RegistrarPaciente extends JDialog {
 	
 	private void clean() {
 
-		txtCodigo.setText("P-"+ClinicaMedica.getInstance().codPaciente);
+		txtCodigo.setText("Pac-"+ClinicaMedica.getInstance().codPaciente);
 		spnFechNac.setValue(new Date());
          txtNombre.setText("");
          txtCedula.setText("");
