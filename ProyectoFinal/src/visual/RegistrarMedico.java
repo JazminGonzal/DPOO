@@ -261,7 +261,7 @@ public class RegistrarMedico extends JDialog {
 				                    codigoMedico, cbPuesto.getSelectedItem().toString(), txtEspecialidad.getText(), sueldo);
 
 				            // Crear el usuario con el código del médico
-				            Usuario nuevoUsuario = new Usuario(codigoMedico, password, "médico");
+				            Usuario nuevoUsuario = new Usuario(codigoMedico, password, "medico");
 
 				            // Verificar si el usuario ya existe
 				            if (!ClinicaMedica.getInstance().verificarUsuarioUnico(codigoMedico)) {

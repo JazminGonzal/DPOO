@@ -16,6 +16,9 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.border.EmptyBorder;
 
+import logico.ClinicaMedica;
+import logico.Usuario;
+
 import javax.swing.JButton;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
@@ -25,6 +28,10 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 import java.awt.event.ActionEvent;
 
@@ -157,54 +164,107 @@ public class PantallaInicio extends JFrame {
     private void verificarArchivoYUsuario() {
         try {
             File archivo = new File(FILE_NAME);
-            if (!archivo.exists()) {
-                archivo.createNewFile();
-                try (FileWriter writer = new FileWriter(archivo, true)) {
-                    writer.write("admin,password,admin\n"); // Usuario predeterminado
+            List<Usuario> usuarios = new ArrayList<>();
+
+            // Verificar si el archivo existe y leer los usuarios
+            if (archivo.exists()) {
+                try (ObjectInputStream ois = new ObjectInputStream(new java.io.FileInputStream(archivo))) {
+                    usuarios = (List<Usuario>) ois.readObject();
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(this, "Error al leer el archivo de usuarios: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                 }
             }
+
+            // Verificar si el usuario admin existe
+            boolean adminExiste = false;
+            for (Usuario usuario : usuarios) {
+                if ("admin".equals(usuario.getUsuario())) {
+                    adminExiste = true;
+                    break;
+                }
+            }
+
+            // Si no existe, agregar el usuario admin
+            if (!adminExiste) {
+                Usuario admin = new Usuario("admin", "password", "admin");
+                usuarios.add(admin);
+                try (ObjectOutputStream oos = new ObjectOutputStream(new java.io.FileOutputStream(archivo))) {
+                    oos.writeObject(usuarios);
+                }
+                JOptionPane.showMessageDialog(this, "Usuario admin creado con éxito.");
+            }
         } catch (IOException e) {
-            JOptionPane.showMessageDialog(this, "Error al crear el archivo: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Error al manejar el archivo de usuarios: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
+
+
     private void validarCredenciales() {
-        String usuario = textField.getText();
-        String contrasena = new String(passwordField.getPassword());
-        boolean credencialesValidas = false;
+        String usuario = textField.getText().trim();
+        String contrasena = new String(passwordField.getPassword()).trim();
+        
+        if (usuario.isEmpty() || contrasena.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Por favor, complete todos los campos.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        boolean usuarioExiste = false;
+        boolean contrasenaCorrecta = false;
         String rol = "";
 
-        try (Scanner scanner = new Scanner(new File(FILE_NAME))) {
-            while (scanner.hasNextLine()) {
-                String linea = scanner.nextLine();
-                String[] datos = linea.split(",");
-                if (datos.length == 3 && datos[0].equals(usuario) && datos[1].equals(contrasena)) {
-                    credencialesValidas = true;
-                    rol = datos[2];
+        try (ObjectInputStream ois = new ObjectInputStream(new java.io.FileInputStream(FILE_NAME))) {
+            // Leer los usuarios del archivo
+            List<Usuario> usuarios = (List<Usuario>) ois.readObject();
+            
+            // Buscar el usuario
+            for (Usuario u : usuarios) {
+                if (u.getUsuario().equals(usuario)) {
+                    usuarioExiste = true;
+                    if (u.getPassword().equals(contrasena)) {
+                        contrasenaCorrecta = true;
+                        rol = u.getRango();
+                    }
                     break;
                 }
             }
         } catch (FileNotFoundException e) {
             JOptionPane.showMessageDialog(this, "Archivo no encontrado: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        } catch (IOException | ClassNotFoundException e) {
+            JOptionPane.showMessageDialog(this, "Error al leer el archivo de usuarios: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            return;
         }
 
-        if (credencialesValidas) {
-            if ("admin".equals(rol)) {
-                JOptionPane.showMessageDialog(this, "Bienvenido, Administrador");
-                new MenuAdmin().setVisible(true);
-                dispose();
-            } else if("regular".equals(rol)) {
-                JOptionPane.showMessageDialog(this, "Bienvenido, Trabajador Regular");
-                new MenuRegular().setVisible(true);
-                dispose();
-            }
-        	 else if("medico".equals(rol)) {
-            JOptionPane.showMessageDialog(this, "Bienvenido, Doctor");
-            new ConsultasPorMedico(textField.getText()).setVisible(true);
-            dispose();
-        }
+        if (!usuarioExiste) {
+            JOptionPane.showMessageDialog(this, "El nombre de usuario no existe.", "Error", JOptionPane.ERROR_MESSAGE);
+        } else if (!contrasenaCorrecta) {
+            JOptionPane.showMessageDialog(this, "Contraseña incorrecta.", "Error", JOptionPane.ERROR_MESSAGE);
         } else {
-            JOptionPane.showMessageDialog(this, "Credenciales incorrectas", "Error", JOptionPane.ERROR_MESSAGE);
+            
+            switch (rol) {
+                case "admin":
+                    JOptionPane.showMessageDialog(this, "Bienvenido, Administrador");
+                    new MenuAdmin().setVisible(true);
+                    dispose();
+                    break;
+                case "regular":
+                    JOptionPane.showMessageDialog(this, "Bienvenido, Trabajador Regular");
+                    new MenuRegular().setVisible(true);
+                    dispose();
+                    break;
+                case "medico":
+                    JOptionPane.showMessageDialog(this, "Bienvenido, Doctor");
+                    new MenuDoctor(usuario).setVisible(true);
+                    dispose();
+                    break;
+                default:
+                    JOptionPane.showMessageDialog(this, "Rol desconocido.", "Error", JOptionPane.ERROR_MESSAGE);
+                    return;
+            }
+            dispose(); // Cierra la pantalla de inicio
         }
     }
+
+
 }
