@@ -1,11 +1,12 @@
 package logico;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.ZoneId;
 import java.util.Date;
 
-public abstract class Persona {
+public abstract class Persona implements Serializable{
 	
 
 	protected String cedula;

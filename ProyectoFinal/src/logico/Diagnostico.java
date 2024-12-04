@@ -1,6 +1,8 @@
 package logico;
 
-public class Diagnostico {
+import java.io.Serializable;
+
+public class Diagnostico implements Serializable{
 
 	private String idDiagnostico;
 	private Paciente paciente;

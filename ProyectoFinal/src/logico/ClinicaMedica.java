@@ -6,10 +6,11 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ClinicaMedica {
+public class ClinicaMedica implements Serializable{
 
 	private ArrayList<Medico> listaMedicos;
 	private ArrayList<Paciente> listaPacientes;
