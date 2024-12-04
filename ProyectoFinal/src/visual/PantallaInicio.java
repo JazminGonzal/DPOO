@@ -50,6 +50,7 @@ public class PantallaInicio extends JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 try {
+                    ClinicaMedica.getInstance().cargarDatos(); // Cargar datos antes de mostrar la pantalla
                     PantallaInicio frame = new PantallaInicio();
                     frame.setVisible(true);
                 } catch (Exception e) {
@@ -58,6 +59,7 @@ public class PantallaInicio extends JFrame {
             }
         });
     }
+
 
     /**
      * Create the frame.
@@ -78,6 +80,7 @@ public class PantallaInicio extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		
 
 		// Cargar la imagen original
 		ImageIcon originalIcon = new ImageIcon(PantallaInicio.class.getResource("logoClinica.png"));

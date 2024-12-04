@@ -42,14 +42,16 @@ public class ListarMedico extends JDialog {
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
-		try {
-			ListarMedico dialog = new ListarMedico();
-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			dialog.setVisible(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+	    ClinicaMedica.getInstance().cargarDatos(); // Carga los datos desde el archivo
+	    try {
+	        ListarMedico dialog = new ListarMedico();
+	        dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+	        dialog.setVisible(true);
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
 	}
+
 
 	/**
 	 * Create the dialog.
@@ -149,20 +151,22 @@ public class ListarMedico extends JDialog {
 	}
 	
 	
-	public static void loadMedicos(){
-
-		modelo.setRowCount(0);
-		ArrayList<Medico> aux = ClinicaMedica.getInstance().getListaMedicos();
-		row = new Object[table.getColumnCount()];
-
-		for(Medico medicos : aux) {
-			row[0] = medicos.getCodMedico();
-			row[1] = medicos.getNombre();
-			row[2] = medicos.getTelefono();
-			row[3] = medicos.getPuesto();
-			row[4] = medicos.getEspecialidad();
-			modelo.addRow(row);
-		}
+	public static void loadMedicos() {
+	    modelo.setRowCount(0); // Limpia la tabla
+	    ArrayList<Medico> aux = ClinicaMedica.getInstance().getListaMedicos();
+	    if (aux.isEmpty()) {
+	        System.out.println("No hay médicos en la lista."); // Mensaje para depuración
+	    }
+	    row = new Object[table.getColumnCount()];
+	    for (Medico medicos : aux) {
+	        row[0] = medicos.getCodMedico();
+	        row[1] = medicos.getNombre();
+	        row[2] = medicos.getTelefono();
+	        row[3] = medicos.getPuesto();
+	        row[4] = medicos.getEspecialidad();
+	        modelo.addRow(row);
+	    }
 	}
+
 
 }
