@@ -102,6 +102,7 @@ public class RegistrarCita extends JDialog {
 
 		// Configuración del JSpinner para mostrar solo la fecha
 		spnNacimiento_1 = new JSpinner();
+		spnNacimiento_1.setEnabled(false);
 		spnNacimiento_1.setModel(new SpinnerDateModel(new Date(), null, null, Calendar.DAY_OF_MONTH));
 		spnNacimiento_1.setBounds(519, 39, 162, 26);
 		JSpinner.DateEditor de_spnNacimiento_1 = new JSpinner.DateEditor(spnNacimiento_1, "yyyy-MM-dd"); // Formato de fecha
@@ -329,9 +330,13 @@ public class RegistrarCita extends JDialog {
 	    txtIdCita.setText("Cita-" + ClinicaMedica.getInstance().codCita);
 	    txtCedula.setText("");
 	    txtDireccion.setText("");
+	    txtDireccion.setEditable(false);
 	    txtMotivo.setText("");
+	    txtMotivo.setEditable(false);
 	    txtNombre.setText("");
+	    txtNombre.setEditable(false);
 	    txtTelefono.setText("");
+	    txtTelefono.setEditable(false);
 	    cbxMedico.setSelectedIndex(0);
 	    spnFechaCita.setValue(new Date());
 	    spnNacimiento.setValue(new Date());
