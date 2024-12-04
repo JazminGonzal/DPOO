@@ -101,7 +101,7 @@ public class MenuDoctor extends JFrame {
 					JOptionPane.showMessageDialog(null, "No hay pacientes registrados. Por favor, registre uno primero.", "Advertencia", JOptionPane.WARNING_MESSAGE);
 				}
 				else {
-				ListarPaciente listaPacientes = new ListarPaciente();
+				PacientePorMedico listaPacientes = new PacientePorMedico(codMedico);
 				listaPacientes.setModal(true);
 				listaPacientes.setVisible(true);
 				}

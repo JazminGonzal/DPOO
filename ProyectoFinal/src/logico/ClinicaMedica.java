@@ -586,6 +586,21 @@ public class ClinicaMedica {
 		return consultasPaciente;
 	}
 	
+	public ArrayList<Paciente> pacientesPorMedico(String codMedico) {
+	    ArrayList<Paciente> pacientesPorMedico = new ArrayList<>();
+
+	    for (Consulta consulta : listaConsultas) {
+	        if (consulta.getDoctor().getCodMedico().equalsIgnoreCase(codMedico)) {
+	            Paciente paciente = consulta.getPaciente();
+	            if (!pacientesPorMedico.contains(paciente)) {
+	                pacientesPorMedico.add(paciente);
+	            }
+	        }
+	    }
+	    
+	    return pacientesPorMedico;
+	}
+
 	
 	
 	
@@ -797,5 +812,6 @@ public class ClinicaMedica {
 	public void setMisUsuarios(ArrayList<Usuario> misUsuarios) {
 		this.misUsuarios = misUsuarios;
 	}
+
 
 }
