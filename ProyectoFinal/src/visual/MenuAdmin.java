@@ -283,8 +283,8 @@ public class MenuAdmin extends JFrame {
 		mntmNewMenuItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				if(ClinicaMedica.getInstance().getListaPacientes().isEmpty()) {
-					JOptionPane.showMessageDialog(null, "No hay pacientes registrados. Por favor, registre una primero.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+				if(ClinicaMedica.getInstance().getListaPacientes().isEmpty() || ClinicaMedica.getInstance().getListaConsultas().isEmpty()) {
+					JOptionPane.showMessageDialog(null, "No hay suficientes datos para generar el reporte.", "Advertencia", JOptionPane.WARNING_MESSAGE);
 				}
 				else {
 				ReportePacientes reportPaciente = new ReportePacientes();
@@ -300,8 +300,8 @@ public class MenuAdmin extends JFrame {
 		mntmNewMenuItem_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				if(ClinicaMedica.getInstance().getListaMedicos().isEmpty()) {
-					JOptionPane.showMessageDialog(null, "No hay medicos registrados. Por favor, registre una primero.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+				if(ClinicaMedica.getInstance().getListaMedicos().isEmpty() || ClinicaMedica.getInstance().getListaConsultas().isEmpty()) {
+					JOptionPane.showMessageDialog(null, "No hay suficientes datos para generar el reporte.", "Advertencia", JOptionPane.WARNING_MESSAGE);
 				}
 				else {
 				ReporteMedicos reportMedico = new ReporteMedicos();
@@ -317,7 +317,7 @@ public class MenuAdmin extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				
 				if(ClinicaMedica.getInstance().getListaEnfermedad().isEmpty()) {
-					JOptionPane.showMessageDialog(null, "No hay enfermedades registradas. Por favor, registre una primero.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+					JOptionPane.showMessageDialog(null, "No hay suficientes datos para generar el reporte.", "Advertencia", JOptionPane.WARNING_MESSAGE);
 				}
 				else {
 				ReporteEnfermedad reportEnfermedad = new ReporteEnfermedad();

@@ -17,6 +17,7 @@ import javax.swing.JPasswordField;
 import javax.swing.border.EmptyBorder;
 
 import logico.ClinicaMedica;
+import logico.Medico;
 import logico.Usuario;
 
 import javax.swing.JButton;
@@ -247,17 +248,18 @@ public class PantallaInicio extends JFrame {
             
             switch (rol) {
                 case "admin":
-                    JOptionPane.showMessageDialog(this, "Bienvenido, Administrador");
+                    JOptionPane.showMessageDialog(this, "Bienvenido, Administrador", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
                     new MenuAdmin().setVisible(true);
                     dispose();
                     break;
                 case "regular":
-                    JOptionPane.showMessageDialog(this, "Bienvenido, Trabajador Regular");
+                    JOptionPane.showMessageDialog(this, "Bienvenido, Trabajador Regular", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
                     new MenuRegular().setVisible(true);
                     dispose();
                     break;
                 case "medico":
-                    JOptionPane.showMessageDialog(this, "Bienvenido, Doctor");
+                	Medico medico = ClinicaMedica.getInstance().buscarMedicoByCod(usuario);
+                    JOptionPane.showMessageDialog(this, "Bienvenido, Doctor "+medico.getNombre(), "Mensaje", JOptionPane.INFORMATION_MESSAGE);
                     new MenuDoctor(usuario).setVisible(true);
                     dispose();
                     break;
