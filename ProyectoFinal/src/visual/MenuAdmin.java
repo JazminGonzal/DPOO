@@ -66,7 +66,7 @@ public class MenuAdmin extends JFrame {
 		setSize(dim.width, dim.height - 10);
 		setLocationRelativeTo(null);
 		
-		JLabel lblClinica = new JLabel("           CL\u00CDNICA PRIVADA ALONSO ");
+		JLabel lblClinica = new JLabel("        CL\u00CDNICA PRIVADA ALONSO ");
 		lblClinica.setForeground(SystemColor.menu);
 		lblClinica.setFont(new Font("Verdana", Font.BOLD, 22));
 		lblClinica.setBounds(969, 70, 407, 48);
@@ -103,10 +103,6 @@ public class MenuAdmin extends JFrame {
 		});
 		menuItem.setFont(new Font("Segoe UI", Font.PLAIN, 20));
 		menu.add(menuItem);
-		
-		JMenuItem menuItem_1 = new JMenuItem("   Listar Citas");
-		menuItem_1.setFont(new Font("Segoe UI", Font.PLAIN, 20));
-		menu.add(menuItem_1);
 		
 		JMenu menu_1 = new JMenu("   Pacientes   ");
 		menu_1.setForeground(new Color(240, 248, 255));

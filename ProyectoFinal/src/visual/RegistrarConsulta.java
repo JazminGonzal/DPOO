@@ -53,6 +53,7 @@ public class RegistrarConsulta extends JDialog {
     private String motivo;
 
     public static void main(String[] args) {
+    	ClinicaMedica.getInstance().cargarDatos();
         try {
             RegistrarConsulta dialog = new RegistrarConsulta(null);
             dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
@@ -318,6 +319,13 @@ public class RegistrarConsulta extends JDialog {
 		                    enfermedadesSeleccionadas.add(enfermedad);
 		                }
 		            }
+
+		            // Validar si el ArrayList de enfermedades está vacío
+		            if (enfermedadesSeleccionadas.isEmpty()) {
+		                JOptionPane.showMessageDialog(contentPanel, "Debe seleccionar al menos una enfermedad para registrar la consulta.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+		                return; // Salir del método
+		            }
+
 		            paciente.setMisEnfermedades(enfermedadesSeleccionadas);
 
 		            // Actualizar las vacunas del paciente
@@ -382,6 +390,7 @@ public class RegistrarConsulta extends JDialog {
 		        }
 		    }
 		});
+
 
 
 

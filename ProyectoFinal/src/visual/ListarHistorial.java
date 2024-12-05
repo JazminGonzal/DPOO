@@ -13,14 +13,15 @@ import logico.Paciente;
 import logico.ClinicaMedica;
 import logico.Consulta;
 import logico.Enfermedad;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class ListarHistorial extends JDialog {
 
     private final JPanel contentPanel = new JPanel();
     private static JTable table;
     private static DefaultTableModel modelo;
-    private JButton btnEliminar;
-    private JButton btnModificar;
+    private JButton btnCancelar;
     private Paciente paciente;
 
     public static void main(String[] args) {
@@ -65,11 +66,13 @@ public class ListarHistorial extends JDialog {
         JPanel buttonPanel = new JPanel();
         contentPanel.add(buttonPanel, BorderLayout.SOUTH);
         buttonPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
-
-        btnModificar = new JButton("Modificar Consulta");
-        btnEliminar = new JButton("Eliminar Consulta");
-        buttonPanel.add(btnModificar);
-        buttonPanel.add(btnEliminar);
+        btnCancelar = new JButton("Cancelar");
+        btnCancelar.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		dispose();
+        	}
+        });
+        buttonPanel.add(btnCancelar);
     }
 
    
@@ -85,7 +88,7 @@ public class ListarHistorial extends JDialog {
             	String fecha = dateFormat.format(consulta.getFechaConsulta());
                 String motivo = consulta.getMotivo();
                 String doctor = consulta.getDoctor() != null ? consulta.getDoctor().getNombre() : "No asignado";
-                String enfermedades = getEnfermedades(consulta);
+                String enfermedades = ClinicaMedica.getInstance().getEnfermedadesPorConsulta(consulta);
 
                 
                 modelo.addRow(new Object[]{fecha, motivo, doctor, enfermedades});

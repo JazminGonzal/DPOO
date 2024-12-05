@@ -44,7 +44,7 @@ public class ReportePacientes extends JFrame {
 	public ReportePacientes() {
 		setTitle("Reporte de Pacientes");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 807, 721);
+		setBounds(100, 100, 807, 666);
 		setLocationRelativeTo(null);
 		contentPane = new JPanel();
 		contentPane.setBackground(SystemColor.menu);
@@ -106,11 +106,6 @@ public class ReportePacientes extends JFrame {
 		lblNewLabel_5.setBounds(55, 418, 302, 20);
 		panel.add(lblNewLabel_5);
 		
-		JLabel lblNewLabel_6 = new JLabel("Pacientes con Enfermedades Bajo Vigilancia:");
-		lblNewLabel_6.setFont(new Font("Tahoma", Font.BOLD, 18));
-		lblNewLabel_6.setBounds(55, 568, 415, 20);
-		panel.add(lblNewLabel_6);
-		
 		JLabel lblTotalPacientes = new JLabel("");
 		lblTotalPacientes.setFont(new Font("Tahoma", Font.BOLD, 17));
 		lblTotalPacientes.setBounds(363, 178, 162, 20);
@@ -140,12 +135,6 @@ public class ReportePacientes extends JFrame {
 		lblCitasPendientes.setBounds(356, 419, 134, 20);
 		lblCitasPendientes.setText(String.valueOf(ClinicaMedica.getInstance().getCantPacientesCitasPendientes()));
 		panel.add(lblCitasPendientes);
-		
-		JLabel lblEnfermedadVigilancia = new JLabel("");
-		lblEnfermedadVigilancia.setFont(new Font("Tahoma", Font.BOLD, 17));
-		lblEnfermedadVigilancia.setBounds(476, 569, 107, 20);
-		lblEnfermedadVigilancia.setText(String.valueOf(ClinicaMedica.getInstance().getCantPacientesEnfermedadesBajoVigilancia()));
-		panel.add(lblEnfermedadVigilancia);
 		
 		JLabel lblPacienteMasConsultado = new JLabel("");
 		lblPacienteMasConsultado.setFont(new Font("Tahoma", Font.BOLD, 17));

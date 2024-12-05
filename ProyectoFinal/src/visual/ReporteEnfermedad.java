@@ -23,7 +23,6 @@ import java.awt.event.ActionEvent;
 public class ReporteEnfermedad extends JFrame {
 
 	private JPanel contentPane;
-	private JComboBox cbEnfermedad;
 	private double porcentaje;
 
 	/**
@@ -48,7 +47,7 @@ public class ReporteEnfermedad extends JFrame {
 	public ReporteEnfermedad() {
 		setTitle("Reporte de Enfermedades");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 781, 729);
+		setBounds(100, 100, 781, 589);
 		setLocationRelativeTo(null);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -121,42 +120,11 @@ public class ReporteEnfermedad extends JFrame {
 		lblBajoVigilancia.setText(String.valueOf(ClinicaMedica.getInstance().contarEnfermedadesBajoVigilancia()));
 		panel.add(lblBajoVigilancia);
 		
-		JLabel label = new JLabel("Porcentaje de Pacientes Afectados por una Enfermedad Específica");
-		label.setFont(new Font("Tahoma", Font.BOLD, 18));
-		label.setBounds(69, 465, 616, 20);
-		panel.add(label);
-		cbEnfermedad = new JComboBox();
-		
-		cbEnfermedad.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				 int indice = cbEnfermedad.getSelectedIndex();
-			        if (indice >= 0) {
-			            Enfermedad enfermedadSeleccionada = ClinicaMedica.getInstance().getListaEnfermedad().get(indice); 
-			             porcentaje = ClinicaMedica.getInstance().porcentajePacienteConEnfermedad(enfermedadSeleccionada);
-			            
-			        }
-			}
-		});
-		cbEnfermedad.setModel(new DefaultComboBoxModel(new String[] {"<Seleccionar>"}));
-		cbEnfermedad.setBounds(69, 522, 207, 26);
-		llenarCbEnfermedad();
-		panel.add(cbEnfermedad);
-		
-		JLabel lblPorcentaje = new JLabel("");
-		lblPorcentaje.setFont(new Font("Tahoma", Font.BOLD, 17));
-		lblPorcentaje.setBounds(317, 525, 215, 20);
-		lblPorcentaje.setText("Porcentaje: "+String.valueOf(porcentaje)+"%");
-		panel.add(lblPorcentaje);
 	}
 	
 	
 	
-	
-	private void llenarCbEnfermedad() {
-	    for (Enfermedad enfermedad : ClinicaMedica.getInstance().getListaEnfermedad()) {
-	        cbEnfermedad.addItem(enfermedad.getNombre());
-	    }
-	}
+
 	
 	
 	

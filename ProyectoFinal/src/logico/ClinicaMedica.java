@@ -134,6 +134,19 @@ public class ClinicaMedica implements Serializable{
 
 	
 	
+	public String getEnfermedadesPorConsulta(Consulta consulta) {
+	    StringBuilder sb = new StringBuilder();
+	    // Verifica si la consulta existe en la lista global
+	    if (listaConsultas.contains(consulta)) {
+	        for (Enfermedad enfermedad : consulta.getEnfermedades()) {
+	            sb.append(enfermedad.getNombre()).append(", ");
+	        }
+	    } else {
+	        return "La consulta no está registrada en la clínica.";
+	    }
+	    return sb.length() > 0 ? sb.substring(0, sb.length() - 2) : "No hay enfermedades registradas";
+	}
+
 	
 	
 	
@@ -236,25 +249,7 @@ public class ClinicaMedica implements Serializable{
 		return (double) totalConsultas / totalPacientes;
 	}
 
-	public int getCantPacientesEnfermedadesBajoVigilancia() {
-		int i = 0;
-		ArrayList<Paciente> pacientesContados = new ArrayList<>();
 
-		for (Cita cita : listaCita) {
-			Paciente paciente = cita.getPaciente();
-
-			if (!pacientesContados.contains(paciente)) {
-				for (Enfermedad enfermedad : paciente.getMisEnfermedades()) {
-					if (enfermedad.isBajoVigilancia()) {
-						pacientesContados.add(paciente);
-						i++;
-						break;
-					}
-				}
-			}
-		}
-		return i;
-	}
 
 	public Paciente getPacienteConMasConsultas() {
 		Paciente pacienteMasConsultas = null;
@@ -354,20 +349,7 @@ public class ClinicaMedica implements Serializable{
 		return i;
 	}
 
-	public double porcentajePacienteConEnfermedad(Enfermedad enfermedadSeleccionada) {
-		int pacientes = 0;
-		int totalPacientes = listaPacientes.size();
 
-		for (Paciente paciente : listaPacientes) {
-			for (Enfermedad enfermedad : paciente.getMisEnfermedades()) {
-				if (enfermedad.equals(enfermedadSeleccionada)) {
-					pacientes++;
-					break;
-				}
-			}
-		}
-		return (pacientes / (double) totalPacientes) * 100;
-	}
 
 	private int contarPacientesConEnfermedad(Enfermedad enfermedadBuscada) {
 		int i = 0;

@@ -195,7 +195,7 @@ public class PantallaInicio extends JFrame {
                 try (ObjectOutputStream oos = new ObjectOutputStream(new java.io.FileOutputStream(archivo))) {
                     oos.writeObject(usuarios);
                 }
-                JOptionPane.showMessageDialog(this, "Usuario admin creado con éxito.");
+                
             }
         } catch (IOException e) {
             JOptionPane.showMessageDialog(this, "Error al manejar el archivo de usuarios: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
