@@ -254,12 +254,7 @@ public class RegistrarMedico extends JDialog {
 							return;
 						}
 
-						if (!ClinicaMedica.getInstance().verificarCedulaUnica(txtCedula.getText())) {
-							JOptionPane.showMessageDialog(null,
-									"La cédula ya está registrada. Ingrese una cédula única.", "Advertencia",
-									JOptionPane.WARNING_MESSAGE);
-							return;
-						}
+
 
 						if (updated == null) {
 							Date fecha = (Date) spnFechNac.getValue();
@@ -276,6 +271,12 @@ public class RegistrarMedico extends JDialog {
 							if (!ClinicaMedica.getInstance().verificarUsuarioUnico(codigoMedico)) {
 								JOptionPane.showMessageDialog(null,
 										"El código de usuario ya está registrado. Intente con otro.", "Advertencia",
+										JOptionPane.WARNING_MESSAGE);
+								return;
+							}
+							if (!ClinicaMedica.getInstance().verificarCedulaUnica(txtCedula.getText())) {
+								JOptionPane.showMessageDialog(null,
+										"La cédula ya está registrada. Ingrese una cédula única.", "Advertencia",
 										JOptionPane.WARNING_MESSAGE);
 								return;
 							}

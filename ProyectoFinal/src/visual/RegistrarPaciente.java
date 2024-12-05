@@ -183,12 +183,13 @@ public class RegistrarPaciente extends JDialog {
 							return;
 						}
 						
-						if(!ClinicaMedica.getInstance().verificarCedulaUnica(txtCedula.getText())){
-							JOptionPane.showMessageDialog(null, "La cédula ya está registrada. Ingrese una cédula única.", "Advertencia", JOptionPane.WARNING_MESSAGE);
-						return;
-						}
+
 						
 						if(updated == null) {
+						if(!ClinicaMedica.getInstance().verificarCedulaUnica(txtCedula.getText())){
+								JOptionPane.showMessageDialog(null, "La cédula ya está registrada. Ingrese una cédula única.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+							return;
+						}
 						Paciente paciente = null;
 						Date fecha = (Date) spnFechNac.getValue();
 						paciente = new Paciente(txtCedula.getText(), txtNombre.getText(), txtTelefono.getText(), txtDireccion.getText(), fecha,txtCodigo.getText());
