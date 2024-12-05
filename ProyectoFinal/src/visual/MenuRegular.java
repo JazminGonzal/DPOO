@@ -95,10 +95,6 @@ public class MenuRegular extends JFrame {
 		mntmRealizarCita.setFont(new Font("Segoe UI", Font.PLAIN, 20));
 		mnCitas.add(mntmRealizarCita);
 		
-		JMenuItem mntmListarCitas = new JMenuItem("   Listar Citas");
-		mntmListarCitas.setFont(new Font("Segoe UI", Font.PLAIN, 20));
-		mnCitas.add(mntmListarCitas);
-		
 		JMenu mnPacientes = new JMenu("   Pacientes   ");
 		mnPacientes.setForeground(new Color(240, 248, 255));
 		mnPacientes.setBackground(new Color(47, 79, 79));

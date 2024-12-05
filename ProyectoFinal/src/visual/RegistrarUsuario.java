@@ -10,6 +10,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.SoftBevelBorder;
 
 import logico.ClinicaMedica;
+import logico.Usuario;
 
 import javax.swing.border.BevelBorder;
 import javax.swing.JLabel;
@@ -113,6 +114,7 @@ public class RegistrarUsuario extends JDialog {
 			panel.add(pfConfirmarPassword);
 		}
 		{
+			
 			JPanel buttonPane = new JPanel();
 			buttonPane.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
@@ -120,11 +122,40 @@ public class RegistrarUsuario extends JDialog {
 			{
 				JButton btnRegistrar = new JButton("Registrar");
 				btnRegistrar.addActionListener(new ActionListener() {
+
 					public void actionPerformed(ActionEvent e) {
 						if(camposVacios()) {
 							JOptionPane.showMessageDialog(null, "Debe completar todos los campos", "Advertencia", JOptionPane.WARNING_MESSAGE);
+							clean();
 							return;
 						}
+						
+						
+						String rol = cbRol.getSelectedItem().toString();
+						if(rol.equalsIgnoreCase("Trabajador Regular")) {
+							rol = "regular";
+						}else {
+							rol = "admin";
+						}
+						String password = new String(txtContrasena.getText());
+						String confirmPassword = new String(pfConfirmarPassword.getPassword());
+
+						if (password.isEmpty() || confirmPassword.isEmpty()) {
+							JOptionPane.showMessageDialog(null, "Debe ingresar y confirmar la contraseña",
+									"Advertencia", JOptionPane.WARNING_MESSAGE);
+							return;
+						}
+
+						if (!password.equals(confirmPassword)) {
+							JOptionPane.showMessageDialog(null, "Las contraseñas no coinciden", "Error",
+									JOptionPane.ERROR_MESSAGE);
+							return;
+						}
+						Usuario nuevoUsuario = new Usuario(txtUsuario.getText(), txtContrasena.getText().toString(), rol);
+						ClinicaMedica.getInstance().insertarUsuario(nuevoUsuario);
+						JOptionPane.showMessageDialog(null, "Registro Satisfactorio", "Información",
+								JOptionPane.INFORMATION_MESSAGE);
+						clean();
 						
 						
 					}
@@ -135,6 +166,11 @@ public class RegistrarUsuario extends JDialog {
 			}
 			{
 				JButton btnCancelar = new JButton("Cancelar");
+				btnCancelar.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						dispose();
+					}
+				});
 				btnCancelar.setActionCommand("Cancel");
 				buttonPane.add(btnCancelar);
 			}

@@ -66,9 +66,9 @@ public class MenuAdmin extends JFrame {
 		setSize(dim.width, dim.height - 10);
 		setLocationRelativeTo(null);
 		
-		JLabel lblClinica = new JLabel("        CL\u00CDNICA PRIVADA ALONSO ");
+		JLabel lblClinica = new JLabel("     CL\u00CDNICA PRIVADA ALONSO ");
 		lblClinica.setForeground(SystemColor.menu);
-		lblClinica.setFont(new Font("Verdana", Font.BOLD, 22));
+		lblClinica.setFont(new Font("Verdana", Font.BOLD, 18));
 		lblClinica.setBounds(969, 70, 407, 48);
 		//contentPane.add(lblClinica);
 		
@@ -78,13 +78,13 @@ public class MenuAdmin extends JFrame {
 		menuBar.setBounds(0, 0, 1898, 85);
 		contentPane.add(menuBar);
 		
-		JMenu menu = new JMenu("   Citas   ");
-		menu.setSize(new Dimension(0, 10));
-		menu.setMinimumSize(new Dimension(0, 10));
-		menu.setForeground(new Color(240, 248, 255));
-		menu.setFont(new Font("Segoe UI", Font.PLAIN, 21));
-		menu.setBackground(new Color(47, 79, 79));
-		menuBar.add(menu);
+		JMenu mnCitas = new JMenu("   Citas");
+		mnCitas.setSize(new Dimension(0, 10));
+		mnCitas.setMinimumSize(new Dimension(0, 10));
+		mnCitas.setForeground(new Color(240, 248, 255));
+		mnCitas.setFont(new Font("Segoe UI", Font.PLAIN, 21));
+		mnCitas.setBackground(new Color(47, 79, 79));
+		menuBar.add(mnCitas);
 		
 		JMenuItem menuItem = new JMenuItem("   Realizar Cita");
 		menuItem.addActionListener(new ActionListener() {
@@ -102,13 +102,13 @@ public class MenuAdmin extends JFrame {
 			}
 		});
 		menuItem.setFont(new Font("Segoe UI", Font.PLAIN, 20));
-		menu.add(menuItem);
+		mnCitas.add(menuItem);
 		
-		JMenu menu_1 = new JMenu("   Pacientes   ");
-		menu_1.setForeground(new Color(240, 248, 255));
-		menu_1.setFont(new Font("Segoe UI", Font.PLAIN, 21));
-		menu_1.setBackground(new Color(47, 79, 79));
-		menuBar.add(menu_1);
+		JMenu mnPacientes = new JMenu("   Pacientes");
+		mnPacientes.setForeground(new Color(240, 248, 255));
+		mnPacientes.setFont(new Font("Segoe UI", Font.PLAIN, 21));
+		mnPacientes.setBackground(new Color(47, 79, 79));
+		menuBar.add(mnPacientes);
 		
 		JMenuItem mntmRegistrarPacientes = new JMenuItem("   Registrar Pacientes");
 		mntmRegistrarPacientes.addActionListener(new ActionListener() {
@@ -120,7 +120,7 @@ public class MenuAdmin extends JFrame {
 			}
 		});
 		mntmRegistrarPacientes.setFont(new Font("Segoe UI", Font.PLAIN, 20));
-		menu_1.add(mntmRegistrarPacientes);
+		mnPacientes.add(mntmRegistrarPacientes);
 		
 		JMenuItem menuItem_2 = new JMenuItem("   Listar Pacientes");
 		menuItem_2.addActionListener(new ActionListener() {
@@ -138,13 +138,13 @@ public class MenuAdmin extends JFrame {
 			}
 		});
 		menuItem_2.setFont(new Font("Segoe UI", Font.PLAIN, 20));
-		menu_1.add(menuItem_2);
+		mnPacientes.add(menuItem_2);
 		
-		JMenu menu_2 = new JMenu("   M\u00E9dicos   ");
-		menu_2.setForeground(new Color(240, 248, 255));
-		menu_2.setFont(new Font("Segoe UI", Font.PLAIN, 21));
-		menu_2.setBackground(new Color(47, 79, 79));
-		menuBar.add(menu_2);
+		JMenu mnMdicos = new JMenu("   M\u00E9dicos");
+		mnMdicos.setForeground(new Color(240, 248, 255));
+		mnMdicos.setFont(new Font("Segoe UI", Font.PLAIN, 21));
+		mnMdicos.setBackground(new Color(47, 79, 79));
+		menuBar.add(mnMdicos);
 		
 		JMenuItem mntmRegistrarPacientes_1 = new JMenuItem("   Registrar M\u00E9dicos");
 		mntmRegistrarPacientes_1.addActionListener(new ActionListener() {
@@ -155,7 +155,7 @@ public class MenuAdmin extends JFrame {
 			}
 		});
 		mntmRegistrarPacientes_1.setFont(new Font("Segoe UI", Font.PLAIN, 20));
-		menu_2.add(mntmRegistrarPacientes_1);
+		mnMdicos.add(mntmRegistrarPacientes_1);
 		
 		JMenuItem menuItem_3 = new JMenuItem("   Listar M\u00E9dicos");
 		menuItem_3.addActionListener(new ActionListener() {
@@ -172,7 +172,7 @@ public class MenuAdmin extends JFrame {
 			}
 		});
 		menuItem_3.setFont(new Font("Segoe UI", Font.PLAIN, 20));
-		menu_2.add(menuItem_3);
+		mnMdicos.add(menuItem_3);
 		
 		JMenu mnVacunas = new JMenu("   Vacunas   ");
 		mnVacunas.setForeground(new Color(240, 248, 255));
@@ -323,6 +323,25 @@ public class MenuAdmin extends JFrame {
 		});
 		mntmNewMenuItem_3.setFont(new Font("Segoe UI", Font.PLAIN, 20));
 		mnNewMenu.add(mntmNewMenuItem_3);
+		
+		JMenu mnAdministracion = new JMenu("   Administraci\u00F3n");
+		mnAdministracion.setSize(new Dimension(0, 10));
+		mnAdministracion.setMinimumSize(new Dimension(0, 10));
+		mnAdministracion.setForeground(new Color(240, 248, 255));
+		mnAdministracion.setFont(new Font("Segoe UI", Font.PLAIN, 21));
+		mnAdministracion.setBackground(new Color(47, 79, 79));
+		menuBar.add(mnAdministracion);
+		
+		JMenuItem mntmAgregarUsuario = new JMenuItem("   Agregar Usuario");
+		mntmAgregarUsuario.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				RegistrarUsuario regUsua = new RegistrarUsuario();
+				regUsua.setModal(true);
+				regUsua.setVisible(true);
+			}
+		});
+		mntmAgregarUsuario.setFont(new Font("Segoe UI", Font.PLAIN, 20));
+		mnAdministracion.add(mntmAgregarUsuario);
 		
 		menuBar.add(lblClinica);
 		menuBar.add(lblImagen);
