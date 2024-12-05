@@ -332,7 +332,6 @@ public class RegistrarCita extends JDialog {
 	    txtDireccion.setText("");
 	    txtDireccion.setEditable(false);
 	    txtMotivo.setText("");
-	    txtMotivo.setEditable(false);
 	    txtNombre.setText("");
 	    txtNombre.setEditable(false);
 	    txtTelefono.setText("");

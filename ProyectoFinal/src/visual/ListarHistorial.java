@@ -97,8 +97,10 @@ public class ListarHistorial extends JDialog {
     private String getEnfermedades(Consulta consulta) {
         StringBuilder sb = new StringBuilder();
         for (Enfermedad enfermedad : consulta.getEnfermedades()) {
+            System.out.println("Enfermedad encontrada: " + enfermedad.getNombre());
             sb.append(enfermedad.getNombre()).append(", ");
         }
         return sb.length() > 0 ? sb.substring(0, sb.length() - 2) : "No hay enfermedades registradas";
     }
+
 }
