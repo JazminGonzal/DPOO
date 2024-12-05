@@ -88,7 +88,7 @@ public class ListarHistorial extends JDialog {
             	String fecha = dateFormat.format(consulta.getFechaConsulta());
                 String motivo = consulta.getMotivo();
                 String doctor = consulta.getDoctor() != null ? consulta.getDoctor().getNombre() : "No asignado";
-                String enfermedades = ClinicaMedica.getInstance().getEnfermedadesPorConsulta(consulta);
+                ArrayList<String> enfermedades = obtenerNombresEnfermedadesPaciente(consulta);
 
                 
                 modelo.addRow(new Object[]{fecha, motivo, doctor, enfermedades});
@@ -97,13 +97,21 @@ public class ListarHistorial extends JDialog {
     }
 
 
-    private String getEnfermedades(Consulta consulta) {
-        StringBuilder sb = new StringBuilder();
+    
+    private ArrayList<String> obtenerNombresEnfermedades(Consulta consulta) {
+        ArrayList<String> nombresEnfermedades = new ArrayList<>();
         for (Enfermedad enfermedad : consulta.getEnfermedades()) {
-            System.out.println("Enfermedad encontrada: " + enfermedad.getNombre());
-            sb.append(enfermedad.getNombre()).append(", ");
+            nombresEnfermedades.add(enfermedad.getNombre());
         }
-        return sb.length() > 0 ? sb.substring(0, sb.length() - 2) : "No hay enfermedades registradas";
+        return nombresEnfermedades;
+    }
+    
+    private ArrayList<String> obtenerNombresEnfermedadesPaciente(Consulta consulta) {
+        ArrayList<String> nombresEnfermedades = new ArrayList<>();
+        for (Enfermedad enfermedad : paciente.getMisEnfermedades()) {
+            nombresEnfermedades.add(enfermedad.getNombre());
+        }
+        return nombresEnfermedades;
     }
 
 }

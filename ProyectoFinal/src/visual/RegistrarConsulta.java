@@ -313,7 +313,7 @@ public class RegistrarConsulta extends JDialog {
 		            // Actualizar las enfermedades del paciente
 		            ArrayList<Enfermedad> enfermedadesSeleccionadas = new ArrayList<>();
 		            for (int i = 0; i < modelEnfermedadesPaciente.getRowCount(); i++) {
-		                String idEnfermedad = (String) modelEnfermedadesPaciente.getValueAt(i, 0);
+		                String idEnfermedad = (String) modelEnfermedadesPaciente.getValueAt(0, i);
 		                Enfermedad enfermedad = ClinicaMedica.getInstance().buscarEnfermedadByCod(idEnfermedad);
 		                if (enfermedad != null) {
 		                    enfermedadesSeleccionadas.add(enfermedad);
