@@ -161,7 +161,7 @@ public class MenuRegular extends JFrame {
 		button.setBounds(15, 31, 282, 29);
 		panel.add(button);
 		
-		lblClinico = new JLabel("                   CL\u00CDNICA PRIVADA ALONSO   ");
+		lblClinico = new JLabel("                                   CL\u00CDNICA PRIVADA ALONSO   ");
 		lblClinico.setForeground(Color.WHITE);
 		lblClinico.setFont(new Font("Verdana", Font.BOLD, 22));
 		lblClinico.setBounds(726, 260, 460, 48);

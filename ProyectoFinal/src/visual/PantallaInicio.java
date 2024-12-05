@@ -66,7 +66,7 @@ public class PantallaInicio extends JFrame {
      * Create the frame.
      */
     public PantallaInicio() {
-		setTitle("Sistema Clinica Privada Alonso");
+		setTitle("Sistema Clínica Privada Alonso");
 		setBackground(new Color(240, 255, 255));
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

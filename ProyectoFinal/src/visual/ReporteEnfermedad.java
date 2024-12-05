@@ -121,7 +121,7 @@ public class ReporteEnfermedad extends JFrame {
 		lblBajoVigilancia.setText(String.valueOf(ClinicaMedica.getInstance().contarEnfermedadesBajoVigilancia()));
 		panel.add(lblBajoVigilancia);
 		
-		JLabel label = new JLabel("Porcentaje de Pacientes Afectados por una Enfermedad Especifica");
+		JLabel label = new JLabel("Porcentaje de Pacientes Afectados por una Enfermedad Específica");
 		label.setFont(new Font("Tahoma", Font.BOLD, 18));
 		label.setBounds(69, 465, 616, 20);
 		panel.add(label);

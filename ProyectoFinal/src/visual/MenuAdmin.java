@@ -66,7 +66,7 @@ public class MenuAdmin extends JFrame {
 		setSize(dim.width, dim.height - 10);
 		setLocationRelativeTo(null);
 		
-		JLabel lblClinica = new JLabel("              CL\u00CDNICA PRIVADA ALONSO ");
+		JLabel lblClinica = new JLabel("           CL\u00CDNICA PRIVADA ALONSO ");
 		lblClinica.setForeground(SystemColor.menu);
 		lblClinica.setFont(new Font("Verdana", Font.BOLD, 22));
 		lblClinica.setBounds(969, 70, 407, 48);
