@@ -164,7 +164,7 @@ public class RegistrarMedico extends JDialog {
 
 			spnFechNac = new JSpinner();
 			spnFechNac.setModel(
-					new SpinnerDateModel(new Date(1732334400000L), null, new Date(1732334400000L), Calendar.YEAR));
+					new SpinnerDateModel(new Date(1733420901071L), null, new Date(1733420901071L), Calendar.YEAR));
 			spnFechNac.setBounds(154, 453, 208, 26);
 			JSpinner.DateEditor de_spnNacimiento = new JSpinner.DateEditor(spnFechNac, "yyyy-MM-dd"); // Formato de
 																										// fecha

@@ -152,7 +152,7 @@ public class RegistrarPaciente extends JDialog {
 			}
 			
 			spnFechNac = new JSpinner();
-			spnFechNac.setModel(new SpinnerDateModel(new Date(1732766400000L), null, null, Calendar.WEEK_OF_MONTH));
+			spnFechNac.setModel(new SpinnerDateModel(new Date(1733420966114L), null, new Date(1733420966114L), Calendar.WEEK_OF_MONTH));
 			spnFechNac.setBounds(581, 267, 233, 26);
 			JSpinner.DateEditor de_spnNacimiento = new JSpinner.DateEditor(spnFechNac, "yyyy-MM-dd"); // Formato de fecha
 	        spnFechNac.setEditor(de_spnNacimiento);

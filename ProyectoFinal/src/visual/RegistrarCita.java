@@ -102,8 +102,7 @@ public class RegistrarCita extends JDialog {
 
 		// Configuración del JSpinner para mostrar solo la fecha
 		spnNacimiento_1 = new JSpinner();
-		spnNacimiento_1.setEnabled(false);
-		spnNacimiento_1.setModel(new SpinnerDateModel(new Date(), null, null, Calendar.DAY_OF_MONTH));
+		spnNacimiento_1.setModel(new SpinnerDateModel(new Date(1733420718605L), null, new Date(1733420718605L), Calendar.DAY_OF_MONTH));
 		spnNacimiento_1.setBounds(519, 39, 162, 26);
 		JSpinner.DateEditor de_spnNacimiento_1 = new JSpinner.DateEditor(spnNacimiento_1, "yyyy-MM-dd"); // Formato de fecha
 		spnNacimiento_1.setEditor(de_spnNacimiento_1);
@@ -167,7 +166,7 @@ public class RegistrarCita extends JDialog {
 
 		// Configuración del JSpinner para la fecha de la cita
 		spnFechaCita_1 = new JSpinner();
-		spnFechaCita_1.setModel(new SpinnerDateModel(new Date(), null, null, Calendar.MINUTE)); // Fecha y hora actuales
+		spnFechaCita_1.setModel(new SpinnerDateModel(new Date(1733420681896L), new Date(1733420681896L), null, Calendar.MINUTE)); // Fecha y hora actuales
 		JSpinner.DateEditor de_spnFechaCita_1 = new JSpinner.DateEditor(spnFechaCita_1, "yyyy-MM-dd HH:mm"); // Formato deseado
 		spnFechaCita_1.setEditor(de_spnFechaCita_1);
 		spnFechaCita_1.setBounds(406, 102, 162, 26); // Posición en el panel
